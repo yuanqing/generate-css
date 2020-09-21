@@ -1,0 +1,56 @@
+{
+  "name": "generate-css",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Yuan Qing Lim",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yuanqing/generate-css.git"
+  },
+  "files": [
+    "lib"
+  ],
+  "bin": {
+    "generate-css": "lib/cli.js"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf '*.log' lib",
+    "fix": "eslint --fix '{src,test}/**/*.ts' && prettier --loglevel error --write '*.json'",
+    "lint": "eslint '{src,test}/**/*.ts'",
+    "reset": "yarn run clean && rimraf node_modules yarn.lock && yarn install",
+    "start": "ts-node src/cli.ts --config sandbox/generate-css.config.json --output sandbox/style.css 'sandbox/*.html'",
+    "watch": "tsc --preserveWatchOutput --watch"
+  },
+  "dependencies": {
+    "chokidar": "^3.4.2",
+    "fs-extra": "^9.0.1",
+    "globby": "^11.0.1",
+    "sade": "^1.7.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "@types/node": "^14.11.1",
+    "@types/sade": "^1.7.2",
+    "eslint": "^7.9.0",
+    "eslint-config-yuanqing": "^0.0.3",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
+  },
+  "eslintConfig": {
+    "extends": "yuanqing"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint"
+    ]
+  },
+  "prettier": "eslint-config-yuanqing/prettier"
+}
