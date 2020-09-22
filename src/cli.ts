@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-import * as fs from 'fs-extra'
 import * as sade from 'sade'
 
-import { Config } from './types'
-import { generateCss } from './utilities/generate-css'
+import { generateCssAsync } from './utilities/generate-css'
+import { readConfigAsync } from './utilities/read-config-async'
 
 sade('generate-css <pattern>', true)
   .option(
@@ -11,12 +10,12 @@ sade('generate-css <pattern>', true)
     'Path to a generate-css configuration file',
     'generate-css.config.json'
   )
-  .option('--o, --output', 'Path to write the generated CSS file', 'style.css')
+  .option('--o, --output', 'Path to output the generated CSS file', 'style.css')
   .action(async function (
     pattern: string,
     options: { config: string; output: string }
   ) {
-    const config: Config = JSON.parse(await fs.readFile(options.config, 'utf8'))
-    await generateCss(pattern, config, options.output)
+    const config = await readConfigAsync(options.config)
+    await generateCssAsync(pattern, config, options.output)
   })
   .parse(process.argv)

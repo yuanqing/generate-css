@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra'
 import * as globby from 'globby'
 
-export async function extractClassNames(
+export async function extractClassNamesAsync(
   globPattern: string
 ): Promise<Array<string>> {
   const paths = await globby(globPattern)

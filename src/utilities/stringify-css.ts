@@ -8,7 +8,9 @@ export function stringifyCss(
   for (const { breakpoint, cssDeclarationBlocks } of css) {
     if (breakpoint !== null) {
       if (typeof config.breakpoints[breakpoint] === 'undefined') {
-        throw new Error(`Breakpoint not defined in config file: ${breakpoint}`)
+        throw new Error(
+          `Breakpoint not defined in configuration file: ${breakpoint}`
+        )
       }
       result.push(`@media (min-width: ${config.breakpoints[breakpoint]}){`)
     }
