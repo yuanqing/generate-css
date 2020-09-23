@@ -8,6 +8,9 @@ export type Config = {
   fontSize: {
     [fontSize: string]: string
   }
+  fontFamily: {
+    [fontFamily: string]: string
+  }
   fontWeight: {
     [fontWeight: string]: string
   }

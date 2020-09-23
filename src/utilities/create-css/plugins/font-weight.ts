@@ -13,5 +13,5 @@ export const fontWeight: Plugin = {
       'font-weight': `${fontWeight}`
     }
   },
-  regex: /^font-(.+)$/
+  regex: /^fontw-(.+)$/
 }

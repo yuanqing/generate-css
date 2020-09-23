@@ -29,7 +29,10 @@ function createCssDeclarationBlock(
   config: Config,
   formatValue: (value: string) => null | string
 ): null | CssDeclarationBlock {
-  const { breakpoint, pseudoClass, selector } = parseClassName(className)
+  const { breakpoint, pseudoClass, selector } = parseClassName(
+    className,
+    config
+  )
   const declarations = mapSelectorToDeclaration(selector)
   if (declarations !== null) {
     return {

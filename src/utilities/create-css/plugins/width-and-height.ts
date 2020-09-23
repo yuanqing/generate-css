@@ -6,7 +6,7 @@ export const widthAndHeight: Plugin = {
     _: Config,
     formatValue: (value: string) => null | string
   ): { [property: string]: string } {
-    const prefix = typeof matches[0] === 'undefined' ? '' : matches[0]
+    const prefix = typeof matches[0] === 'undefined' ? '' : `${matches[0]}-`
     const suffix = matches[1] === 'w' ? 'width' : 'height'
     const value = formatValue(matches[2])
     if (value === null) {

@@ -41,7 +41,8 @@ function stringifyCssDeclarationBlocks(
     }
     result.push(escapeSpecialCharacters(selector))
     if (pseudoClass !== null) {
-      result.push(`:${pseudoClass}`)
+      const prefix = pseudoClass === 'selection' ? '::' : ':'
+      result.push(`${prefix}${pseudoClass}`)
     }
     result.push(`{${stringifyDeclarations(declarations)}}`)
   }
