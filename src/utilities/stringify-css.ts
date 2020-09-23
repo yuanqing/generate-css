@@ -7,12 +7,12 @@ export function stringifyCss(
   const result = []
   for (const { breakpoint, cssDeclarationBlocks } of css) {
     if (breakpoint !== null) {
-      if (typeof config.breakpoints[breakpoint] === 'undefined') {
+      if (typeof config.breakpoint[breakpoint] === 'undefined') {
         throw new Error(
           `Breakpoint not defined in configuration file: ${breakpoint}`
         )
       }
-      result.push(`@media (min-width: ${config.breakpoints[breakpoint]}){`)
+      result.push(`@media (min-width: ${config.breakpoint[breakpoint]}){`)
     }
     result.push(stringifyCssDeclarationBlocks(cssDeclarationBlocks))
     if (breakpoint !== null) {
@@ -39,13 +39,21 @@ function stringifyCssDeclarationBlocks(
     if (pseudoClass !== null) {
       result.push(`${pseudoClass}\\:`)
     }
-    result.push(selector)
+    result.push(escapeSpecialCharacters(selector))
     if (pseudoClass !== null) {
       result.push(`:${pseudoClass}`)
     }
     result.push(`{${stringifyDeclarations(declarations)}}`)
   }
   return result.join('')
+}
+
+const specialCharactersRegex = /[/:]/
+
+function escapeSpecialCharacters(string: string) {
+  return string.replace(specialCharactersRegex, function (match: string) {
+    return `\\${match}`
+  })
 }
 
 function stringifyDeclarations(declarations: { [property: string]: string }) {

@@ -2,9 +2,9 @@ import * as fs from 'fs-extra'
 import * as globby from 'globby'
 
 export async function extractClassNamesAsync(
-  globPattern: string
+  pattern: string
 ): Promise<Array<string>> {
-  const paths = await globby(globPattern)
+  const paths = await globby(pattern)
   const result: { [key: string]: boolean } = {}
   for (const path of paths) {
     const string = await fs.readFile(path, 'utf8')

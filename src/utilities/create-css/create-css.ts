@@ -1,43 +1,61 @@
 import { Config, CssDeclarationBlock, CssDeclarationBlocks } from '../../types'
+import { formatValueFactory } from './format-value-factory'
+import { mapSelectorToDeclaration } from './map-selector-to-declaration'
 import { parseClassName } from './parse-class-name'
-import { width } from './plugins/width'
-
-const plugins = [width]
+import { plugins } from './plugins'
 
 export function createCss(
   classNames: Array<string>,
   config: Config
 ): Array<CssDeclarationBlocks> {
   const result: Array<CssDeclarationBlock> = []
+  const formatValue = formatValueFactory(config.breakpoint, config.space)
   for (const className of classNames) {
-    result.push(createCssDeclarationBlock(className, config))
+    const cssDeclarationBlock = createCssDeclarationBlock(
+      className,
+      config,
+      formatValue
+    )
+    if (cssDeclarationBlock === null) {
+      continue
+    }
+    result.push(cssDeclarationBlock)
   }
   return groupCssDeclarationBlocksByBreakpoint(result)
 }
 
 function createCssDeclarationBlock(
   className: string,
-  config: Config
-): CssDeclarationBlock {
+  config: Config,
+  formatValue: (value: string) => null | string
+): null | CssDeclarationBlock {
   const { breakpoint, pseudoClass, selector } = parseClassName(className)
-  let matches
-  for (const plugin of plugins) {
-    matches = selector.match(plugin.regex)
-    if (matches === null) {
-      continue
-    }
+  const declarations = mapSelectorToDeclaration(selector)
+  if (declarations !== null) {
     return {
       breakpoint,
-      declarations: plugin.createDeclarations(
-        config,
-        matches.slice(1),
-        className
-      ),
+      declarations,
       pseudoClass,
       selector
     }
   }
-  throw new Error(`Classname ${className} not match any plugin`)
+  let matches
+  for (const plugin of plugins) {
+    matches = selector.match(plugin.regex)
+    if (matches !== null) {
+      return {
+        breakpoint,
+        declarations: plugin.createDeclarations(
+          matches.slice(1),
+          config,
+          formatValue
+        ),
+        pseudoClass,
+        selector
+      }
+    }
+  }
+  return null
 }
 
 function groupCssDeclarationBlocksByBreakpoint(

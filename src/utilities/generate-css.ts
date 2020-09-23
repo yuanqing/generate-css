@@ -6,11 +6,11 @@ import { extractClassNamesAsync } from './extract-class-names-async/extract-clas
 import { stringifyCss } from './stringify-css'
 
 export async function generateCssAsync(
-  globPattern: string,
+  pattern: string,
   config: Config,
   outputPath: string
 ): Promise<void> {
-  const classNames = await extractClassNamesAsync(globPattern)
+  const classNames = await extractClassNamesAsync(pattern)
   const css = createCss(classNames, config)
   const string = stringifyCss(css, config)
   await fs.outputFile(outputPath, string)
