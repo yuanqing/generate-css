@@ -1,3 +1,4 @@
+import * as csso from 'csso'
 import * as fs from 'fs-extra'
 import * as globby from 'globby'
 
@@ -10,16 +11,17 @@ export async function generateCssAsync(
   pattern: string,
   baseCssFilesPattern: null | string,
   config: Config,
-  outputPath: string
+  outputPath: string,
+  minify: boolean
 ): Promise<void> {
   const classNames = await extractClassNamesAsync(pattern)
-  const css = createCss(classNames, config)
-  const string = stringifyCss(css, config)
+  const generatedCss = createCss(classNames, config)
   const baseCss =
     baseCssFilesPattern === null
       ? ''
       : await readBaseCssFilesAsync(baseCssFilesPattern)
-  await fs.outputFile(outputPath, `${baseCss}${string}`)
+  const css = `${baseCss}${stringifyCss(generatedCss, config)}`
+  await fs.outputFile(outputPath, minify === true ? csso.minify(css).css : css)
 }
 
 async function readBaseCssFilesAsync(pattern: string): Promise<string> {

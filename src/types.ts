@@ -8,10 +8,10 @@ export type Config = {
   color: {
     [key: string]: string
   }
-  fontSize: {
+  fontFamily: {
     [key: string]: string
   }
-  fontFamily: {
+  fontSize: {
     [key: string]: string
   }
   fontWeight: {

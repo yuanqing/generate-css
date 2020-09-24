@@ -8,11 +8,12 @@ export function watch(
   pattern: string,
   baseCssFilesPattern: null | string,
   config: Config,
-  outputPath: string
+  outputPath: string,
+  minify: boolean
 ): void {
   const watcher = chokidar.watch(pattern)
   async function onChangeAsync() {
-    await build(pattern, baseCssFilesPattern, config, outputPath)
+    await build(pattern, baseCssFilesPattern, config, outputPath, minify)
     log.info('Watching...')
   }
   watcher.on('ready', onChangeAsync)

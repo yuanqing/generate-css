@@ -16,6 +16,7 @@ sade('generate-css <pattern>', true)
     'generate-css.config.json'
   )
   .option('--o, --output', 'Path to output the generated CSS file', 'style.css')
+  .option('--m, --minify', 'Whether to minify the generated CSS file', true)
   .option(
     '--w, --watch',
     'Watch the input files and regenerate a CSS file on changes',
@@ -23,15 +24,33 @@ sade('generate-css <pattern>', true)
   )
   .action(async function (
     pattern: string,
-    options: { base: string; config: string; output: string; watch: boolean }
+    options: {
+      base: string
+      config: string
+      minify: boolean
+      output: string
+      watch: boolean
+    }
   ) {
     const config = await readConfigAsync(options.config)
     const baseCssFilesPattern =
       typeof options.base === 'undefined' ? null : options.base
     if (options.watch === true) {
-      watch(pattern, baseCssFilesPattern, config, options.output)
+      watch(
+        pattern,
+        baseCssFilesPattern,
+        config,
+        options.output,
+        options.minify
+      )
       return
     }
-    await build(pattern, baseCssFilesPattern, config, options.output)
+    await build(
+      pattern,
+      baseCssFilesPattern,
+      config,
+      options.output,
+      options.minify
+    )
   })
   .parse(process.argv)
