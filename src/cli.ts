@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import * as sade from 'sade'
 
-import { generateCssAsync } from './utilities/generate-css'
+import { build } from './utilities/build'
 import { readConfigAsync } from './utilities/read-config-async'
+import { watch } from './utilities/watch'
 
 sade('generate-css <pattern>', true)
   .option(
@@ -15,13 +16,22 @@ sade('generate-css <pattern>', true)
     'generate-css.config.json'
   )
   .option('--o, --output', 'Path to output the generated CSS file', 'style.css')
+  .option(
+    '--w, --watch',
+    'Watch the input files and regenerate a CSS file on changes',
+    false
+  )
   .action(async function (
     pattern: string,
-    options: { base: string; config: string; output: string }
+    options: { base: string; config: string; output: string; watch: boolean }
   ) {
     const config = await readConfigAsync(options.config)
     const baseCssFilesPattern =
       typeof options.base === 'undefined' ? null : options.base
-    await generateCssAsync(pattern, baseCssFilesPattern, config, options.output)
+    if (options.watch === true) {
+      watch(pattern, baseCssFilesPattern, config, options.output)
+      return
+    }
+    await build(pattern, baseCssFilesPattern, config, options.output)
   })
   .parse(process.argv)

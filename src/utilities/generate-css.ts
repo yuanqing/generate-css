@@ -24,6 +24,9 @@ export async function generateCssAsync(
 
 async function readBaseCssFilesAsync(pattern: string): Promise<string> {
   const paths = await globby(pattern)
+  if (paths.length === 0) {
+    throw new Error(`No files matched by pattern: ${pattern}`)
+  }
   const result = []
   for (const path of paths) {
     result.push(await fs.readFile(path, 'utf8'))
