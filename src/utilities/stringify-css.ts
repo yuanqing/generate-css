@@ -30,19 +30,25 @@ function stringifyCssDeclarationBlocks(
     breakpoint,
     pseudoClass,
     selector,
-    declarations: declarations
+    declarations: declarations,
+    isClass
   } of cssDeclarationBlocks) {
-    result.push('.')
-    if (breakpoint !== null) {
-      result.push(`${breakpoint}\\:`)
+    if (isClass === true) {
+      result.push('.')
+      if (breakpoint !== null) {
+        result.push(`${breakpoint}\\:`)
+      }
     }
     if (pseudoClass !== null) {
       result.push(`${pseudoClass}\\:`)
     }
     result.push(escapeSpecialCharacters(selector))
     if (pseudoClass !== null) {
-      const prefix = pseudoClass === 'selection' ? '::' : ':'
-      result.push(`${prefix}${pseudoClass}`)
+      if (pseudoClass === 'selection') {
+        result.push(` *::${pseudoClass}`)
+      } else {
+        result.push(`:${pseudoClass}`)
+      }
     }
     result.push(`{${stringifyDeclarations(declarations)}}`)
   }

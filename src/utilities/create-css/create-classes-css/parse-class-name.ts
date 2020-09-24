@@ -1,4 +1,4 @@
-import { Config, ParsedClassName } from '../../types'
+import { Config, ParsedClassName } from '../../../types'
 
 const classRegex = /(?:([^:]+):)?(?:([^:]+):)?(.+)/
 

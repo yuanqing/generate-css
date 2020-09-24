@@ -1,23 +1,29 @@
 export type Config = {
+  baseFontSize: {
+    [key: string]: string
+  }
   breakpoint: {
-    [breakpoint: string]: string
+    [key: string]: string
   }
   color: {
-    [color: string]: string
+    [key: string]: string
   }
   fontSize: {
-    [fontSize: string]: string
+    [key: string]: string
   }
   fontFamily: {
-    [fontFamily: string]: string
+    [key: string]: string
   }
   fontWeight: {
-    [fontWeight: string]: string
+    [key: string]: string
   }
-  space: {
-    unit: string
-    value: number
+  letterSpacing: {
+    [key: string]: string
   }
+  lineHeight: {
+    [key: string]: string
+  }
+  space: number | string
 }
 
 export interface ParsedClassName {
@@ -32,6 +38,7 @@ export type CssDeclarationBlocks = {
 }
 export interface CssDeclarationBlock extends ParsedClassName {
   declarations: Declarations
+  isClass: boolean
 }
 export type Declarations = { [property: string]: string }
 

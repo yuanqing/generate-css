@@ -1,4 +1,4 @@
-import { Declarations } from '../../types'
+import { Declarations } from '../../../types'
 import { declarations } from './declarations'
 
 export function mapSelectorToDeclaration(

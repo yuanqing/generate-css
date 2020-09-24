@@ -1,17 +1,17 @@
-import { Config, Plugin } from '../../../types'
+import { Config, Plugin } from '../../../../types'
 
-export const backgroundColor: Plugin = {
+export const color: Plugin = {
   createDeclarations: function (
     matches: Array<string>,
     config: Config
   ): { [property: string]: string } {
     const color = config.color[matches[0]]
     if (typeof color === 'undefined') {
-      throw new Error(`Invalid background color: ${matches[0]}`)
+      throw new Error(`Invalid color: ${matches[0]}`)
     }
     return {
-      'background-color': `${color}`
+      color: `${color}`
     }
   },
-  regex: /^bg-(.+)$/
+  regex: /^color-(.+)$/
 }

@@ -18,11 +18,11 @@ export async function generateCssAsync(
   const baseCss =
     baseCssFilesPattern === null
       ? ''
-      : await readBaseCssFiles(baseCssFilesPattern)
+      : await readBaseCssFilesAsync(baseCssFilesPattern)
   await fs.outputFile(outputPath, `${baseCss}${string}`)
 }
 
-async function readBaseCssFiles(pattern: string): Promise<string> {
+async function readBaseCssFilesAsync(pattern: string): Promise<string> {
   const paths = await globby(pattern)
   const result = []
   for (const path of paths) {
