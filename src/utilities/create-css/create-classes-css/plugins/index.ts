@@ -1,4 +1,5 @@
 import { backgroundColor } from './background-color'
+import { borderColor } from './border-color'
 import { borderRadius } from './border-radius'
 import { borderWidth } from './border-width'
 import { color } from './color'
@@ -11,6 +12,7 @@ import { widthAndHeight } from './width-and-height'
 
 export const plugins = [
   backgroundColor,
+  borderColor,
   borderWidth,
   borderRadius,
   color,
