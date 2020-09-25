@@ -7,21 +7,22 @@ import { createCss } from './create-css/create-css'
 import { extractClassNamesAsync } from './extract-class-names-async/extract-class-names-async'
 import { stringifyCss } from './stringify-css'
 
-export async function generateCssAsync(
-  pattern: string,
-  baseCssFilesPattern: null | string,
-  config: Config,
-  outputPath: string,
-  minify: boolean
-): Promise<void> {
-  const classNames = await extractClassNamesAsync(pattern)
+export async function generateCssAsync(config: Config): Promise<void> {
+  const classNames = await extractClassNamesAsync(config.sourceFilesPattern)
   const generatedCss = createCss(classNames, config)
   const baseCss =
-    baseCssFilesPattern === null
+    config.baseCssFilesPattern === null
       ? ''
-      : await readBaseCssFilesAsync(baseCssFilesPattern)
-  const css = `${baseCss}${stringifyCss(generatedCss, config)}`
-  await fs.outputFile(outputPath, minify === true ? csso.minify(css).css : css)
+      : await readBaseCssFilesAsync(config.baseCssFilesPattern)
+  const css = formatCss(
+    `${baseCss}${stringifyCss(generatedCss, config)}`,
+    config.minify
+  )
+  if (config.outputPath === null) {
+    console.log(css) // eslint-disable-line no-console
+    return
+  }
+  await fs.outputFile(config.outputPath, css)
 }
 
 async function readBaseCssFilesAsync(pattern: string): Promise<string> {
@@ -34,4 +35,8 @@ async function readBaseCssFilesAsync(pattern: string): Promise<string> {
     result.push(await fs.readFile(path, 'utf8'))
   }
   return result.join('')
+}
+
+function formatCss(css: string, minify: boolean) {
+  return minify === true ? csso.minify(css).css : css
 }

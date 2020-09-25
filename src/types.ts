@@ -1,4 +1,8 @@
 export type Config = {
+  baseCssFilesPattern: null | string
+  minify: boolean
+  outputPath: null | string
+  sourceFilesPattern: string
   baseFontSize: {
     [key: string]: string
   }

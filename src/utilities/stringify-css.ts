@@ -12,7 +12,7 @@ export function stringifyCss(
           `Breakpoint not defined in configuration file: ${breakpoint}`
         )
       }
-      result.push(`@media (min-width: ${config.breakpoint[breakpoint]}){`)
+      result.push(`@media (min-width: ${config.breakpoint[breakpoint]}) {`)
     }
     result.push(stringifyCssDeclarationBlocks(cssDeclarationBlocks))
     if (breakpoint !== null) {
