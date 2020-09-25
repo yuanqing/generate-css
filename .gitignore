@@ -2,5 +2,5 @@
 *.log
 *.tsbuildinfo
 lib/
-sandbox/
 node_modules/
+sandbox/
