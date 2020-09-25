@@ -15,7 +15,7 @@ sade('generate-css <pattern>', true)
     'Path to a `generate-css` configuration file',
     'generate-css.config.json'
   )
-  .option('--m, --minify', 'Whether to minify the generated CSS file', true)
+  .option('--m, --minify', 'Whether to minify the generated CSS file', false)
   .option('--o, --output', 'Path to write the generated CSS file')
   .option(
     '--w, --watch',

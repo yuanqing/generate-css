@@ -1,6 +1,7 @@
 import * as csso from 'csso'
 import * as fs from 'fs-extra'
 import * as globby from 'globby'
+import * as prettier from 'prettier'
 
 import { Config } from './types'
 import { createCss } from './utilities/create-css/create-css'
@@ -38,5 +39,8 @@ async function readBaseCssFilesAsync(pattern: string): Promise<string> {
 }
 
 function formatCss(css: string, minify: boolean) {
-  return minify === true ? csso.minify(css).css : css
+  if (minify === true) {
+    return csso.minify(css).css
+  }
+  return prettier.format(css, { parser: 'css' }).replace(/\n+/g, '\n')
 }

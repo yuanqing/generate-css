@@ -10,6 +10,10 @@ export const textStyle: Plugin = {
     if (typeof fontSize !== 'undefined') {
       result['font-size'] = fontSize
     }
+    const fontWeight = config.fontWeight[matches[0]]
+    if (typeof fontWeight !== 'undefined') {
+      result['font-weight'] = fontWeight
+    }
     const letterSpacing = config.letterSpacing[matches[0]]
     if (typeof letterSpacing !== 'undefined') {
       result['letter-spacing'] = letterSpacing
