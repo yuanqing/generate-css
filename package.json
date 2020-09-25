@@ -1,8 +1,14 @@
 {
   "name": "generate-css",
   "version": "0.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "Dynamically generate functional CSS classes from HTML and JavaScript source files",
+  "keywords": [
+    "css",
+    "dynamic-css",
+    "functional-css",
+    "generate-css",
+    "style"
+  ],
   "license": "MIT",
   "author": "Yuan Qing Lim",
   "repository": {
@@ -22,7 +28,7 @@
     "fix": "eslint --fix '{src,test}/**/*.ts' && prettier --loglevel error --write '*.json'",
     "lint": "eslint '{src,test}/**/*.ts'",
     "reset": "yarn run clean && rimraf node_modules yarn.lock && yarn install",
-    "start": "ts-node src/cli.ts --base sandbox/base.css --config sandbox/generate-css.config.json --output sandbox/style.css 'sandbox/*.html'",
+    "start": "ts-node src/cli.ts 'sandbox/*.html' --base sandbox/base.css --config sandbox/generate-css.config.json --output sandbox/style.css",
     "watch": "tsc --watch"
   },
   "dependencies": {
