@@ -1,1 +1,1 @@
-export * from './utilities/generate-css'
+export * from './generate-css'

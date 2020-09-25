@@ -1,8 +1,8 @@
 import * as chokidar from 'chokidar'
 
-import { Config } from '../types'
 import { build } from './build'
-import { log } from './log'
+import { Config } from './types'
+import { log } from './utilities/log'
 
 export function watch(config: Config): void {
   const watcher = chokidar.watch(config.sourceFilesPattern)

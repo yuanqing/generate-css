@@ -2,10 +2,10 @@ import * as csso from 'csso'
 import * as fs from 'fs-extra'
 import * as globby from 'globby'
 
-import { Config } from '../types'
-import { createCss } from './create-css/create-css'
-import { extractClassNamesAsync } from './extract-class-names-async/extract-class-names-async'
-import { stringifyCss } from './stringify-css'
+import { Config } from './types'
+import { createCss } from './utilities/create-css/create-css'
+import { extractClassNamesAsync } from './utilities/extract-class-names-async/extract-class-names-async'
+import { stringifyCss } from './utilities/stringify-css'
 
 export async function generateCssAsync(config: Config): Promise<void> {
   const classNames = await extractClassNamesAsync(config.sourceFilesPattern)

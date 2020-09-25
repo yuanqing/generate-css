@@ -1,25 +1,25 @@
 #!/usr/bin/env node
 import * as sade from 'sade'
 
-import { build } from './utilities/build'
+import { build } from './build'
 import { readConfigAsync } from './utilities/read-config-async'
-import { watch } from './utilities/watch'
+import { watch } from './watch'
 
 sade('generate-css <pattern>', true)
   .option(
     '--b, --base',
-    'Glob pattern for base CSS files to prepend to the generated CSS file'
+    'Glob pattern for CSS files to prepend to the generated CSS file'
   )
   .option(
     '--c, --config',
-    'Path to a generate-css configuration file',
+    'Path to a `generate-css` configuration file',
     'generate-css.config.json'
   )
   .option('--m, --minify', 'Whether to minify the generated CSS file', true)
-  .option('--o, --output', 'Path to output the generated CSS file')
+  .option('--o, --output', 'Path to write the generated CSS file')
   .option(
     '--w, --watch',
-    'Watch the input files and regenerate a CSS file on changes',
+    'Whether to automatically generate a CSS file on changes to the source files',
     false
   )
   .action(async function (

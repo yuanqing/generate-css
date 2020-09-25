@@ -1,8 +1,5 @@
 export type Config = {
   baseCssFilesPattern: null | string
-  minify: boolean
-  outputPath: null | string
-  sourceFilesPattern: string
   baseFontSize: {
     [key: string]: string
   }
@@ -27,6 +24,9 @@ export type Config = {
   lineHeight: {
     [key: string]: string
   }
+  minify: boolean
+  outputPath: null | string
+  sourceFilesPattern: string
   space: number | string
 }
 
