@@ -27,6 +27,7 @@
     "clean": "rimraf '*.log' lib",
     "fix": "eslint --fix '{src,test}/**/*.ts' && prettier --loglevel error --write '*.json'",
     "lint": "eslint '{src,test}/**/*.ts'",
+    "prepublishOnly": "yarn run clean && yarn run build",
     "reset": "yarn run clean && rimraf node_modules yarn.lock && yarn install",
     "start": "ts-node src/cli.ts 'sandbox/*.html' --base sandbox/base.css --config sandbox/generate-css.config.json --output sandbox/style.css",
     "watch": "tsc --watch"
