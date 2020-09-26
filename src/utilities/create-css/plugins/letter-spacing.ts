@@ -1,4 +1,4 @@
-import { Config, Plugin } from '../../../../types'
+import { Config, Plugin } from '../../../types'
 
 const digitsRegex = /\d+/
 

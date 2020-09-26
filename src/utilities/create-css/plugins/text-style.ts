@@ -1,4 +1,4 @@
-import { Config, Plugin } from '../../../../types'
+import { Config, Plugin } from '../../../types'
 
 export const textStyle: Plugin = {
   createDeclarations: function (

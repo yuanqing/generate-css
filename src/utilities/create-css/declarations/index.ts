@@ -1,4 +1,4 @@
-import { Declarations } from '../../../../types'
+import { Declarations } from '../../../types'
 import { cursor } from './cursor'
 import { display } from './display'
 import { position } from './position'

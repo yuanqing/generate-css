@@ -1,9 +1,9 @@
 import { Config, CssDeclarationBlock, CssDeclarationBlocks } from '../../types'
-import { formatValueFactory } from './create-classes-css/format-value-factory'
-import { mapSelectorToDeclaration } from './create-classes-css/map-selector-to-declaration'
-import { parseClassName } from './create-classes-css/parse-class-name'
-import { plugins } from './create-classes-css/plugins'
+import { formatValueFactory } from './format-value-factory'
 import { groupCssDeclarationBlocksByBreakpoint } from './group-css-declaration-blocks-by-breakpoint'
+import { mapSelectorToDeclaration } from './map-selector-to-declaration'
+import { parseClassName } from './parse-class-name'
+import { plugins } from './plugins'
 
 export function createCss(
   classNames: Array<string>,

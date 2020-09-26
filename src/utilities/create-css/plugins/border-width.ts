@@ -1,4 +1,4 @@
-import { Plugin } from '../../../../types'
+import { Plugin } from '../../../types'
 
 export const borderWidth: Plugin = {
   createDeclarations: function (
