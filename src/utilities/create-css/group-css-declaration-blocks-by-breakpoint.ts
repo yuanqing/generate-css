@@ -19,24 +19,13 @@ export function groupCssDeclarationBlocksByBreakpoint(
   const result: Array<CssDeclarationBlocks> = []
   result.push({
     breakpoint: null,
-    cssDeclarationBlocks: sortCssDeclarationBlocks(base)
+    cssDeclarationBlocks: base
   })
   for (const breakpoint of Object.keys(breakpoints)) {
     result.push({
       breakpoint,
-      cssDeclarationBlocks: sortCssDeclarationBlocks(breakpoints[breakpoint])
+      cssDeclarationBlocks: breakpoints[breakpoint]
     })
   }
   return result
-}
-
-function sortCssDeclarationBlocks(
-  cssDeclarationBlocks: Array<CssDeclarationBlock>
-) {
-  return cssDeclarationBlocks.slice().sort(function (a, b) {
-    if (a.pseudoClass === null) {
-      return b.pseudoClass === null ? a.selector.localeCompare(b.selector) : -1
-    }
-    return b.pseudoClass === null ? 1 : a.selector.localeCompare(b.selector)
-  })
 }
