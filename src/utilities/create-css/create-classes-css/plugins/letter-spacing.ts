@@ -7,7 +7,7 @@ export const letterSpacing: Plugin = {
     matches: Array<string>,
     config: Config
   ): { [property: string]: string } {
-    const letterSpacing = config.letterSpacing[matches[0]]
+    const letterSpacing = config.theme.letterSpacing[matches[0]]
     if (typeof letterSpacing !== 'undefined') {
       return {
         'letter-spacing': `${letterSpacing}`

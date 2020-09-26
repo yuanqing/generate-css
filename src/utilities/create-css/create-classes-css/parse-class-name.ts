@@ -15,7 +15,7 @@ export function parseClassName(
     }
   }
   if (typeof matches[2] === 'undefined') {
-    if (typeof config.breakpoint[matches[1]] === 'undefined') {
+    if (typeof config.theme.breakpoint[matches[1]] === 'undefined') {
       return {
         breakpoint: null,
         pseudoClass: matches[1],

@@ -6,19 +6,19 @@ export const textStyle: Plugin = {
     config: Config
   ): { [property: string]: string } {
     const result: { [property: string]: string } = {}
-    const fontSize = config.fontSize[matches[0]]
+    const fontSize = config.theme.fontSize[matches[0]]
     if (typeof fontSize !== 'undefined') {
       result['font-size'] = fontSize
     }
-    const fontWeight = config.fontWeight[matches[0]]
+    const fontWeight = config.theme.fontWeight[matches[0]]
     if (typeof fontWeight !== 'undefined') {
       result['font-weight'] = fontWeight
     }
-    const letterSpacing = config.letterSpacing[matches[0]]
+    const letterSpacing = config.theme.letterSpacing[matches[0]]
     if (typeof letterSpacing !== 'undefined') {
       result['letter-spacing'] = letterSpacing
     }
-    const lineHeight = config.lineHeight[matches[0]]
+    const lineHeight = config.theme.lineHeight[matches[0]]
     if (typeof lineHeight !== 'undefined') {
       result['line-height'] = lineHeight
     }

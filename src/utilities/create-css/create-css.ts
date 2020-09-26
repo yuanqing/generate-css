@@ -9,7 +9,10 @@ export function createCss(
   classNames: Array<string>,
   config: Config
 ): Array<CssDeclarationBlocks> {
-  const formatValue = formatValueFactory(config.breakpoint, config.space)
+  const formatValue = formatValueFactory(
+    config.theme.breakpoint,
+    config.theme.space
+  )
   const result: Array<CssDeclarationBlock> = []
   for (const className of classNames) {
     const cssDeclarationBlock = createCssDeclarationBlock(

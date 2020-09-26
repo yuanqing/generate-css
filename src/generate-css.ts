@@ -20,7 +20,7 @@ export async function generateCssAsync(config: Config): Promise<void> {
       : await readFilesAsync(config.prependCssFilesPattern)
   const resetCss = config.reset === true ? await readResetCssFilesAsync() : ''
   const baseFontSizeCss =
-    typeof config.baseFontSize === 'undefined'
+    typeof config.theme.baseFontSize === 'undefined'
       ? ''
       : createBaseFontSizeCss(config)
   const appendCss =

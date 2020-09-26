@@ -1,35 +1,25 @@
+type Theme = {
+  [key: string]: string
+}
+
 export type Config = {
   appendCssFilesPattern: null | string
-  baseFontSize: {
-    [key: string]: string
-  }
-  breakpoint: {
-    [key: string]: string
-  }
-  color: {
-    [key: string]: string
-  }
-  fontFamily: {
-    [key: string]: string
-  }
-  fontSize: {
-    [key: string]: string
-  }
-  fontWeight: {
-    [key: string]: string
-  }
-  letterSpacing: {
-    [key: string]: string
-  }
-  lineHeight: {
-    [key: string]: string
-  }
   outputPath: null | string
   prependCssFilesPattern: null | string
   prettyPrint: boolean
   reset: boolean
   sourceFilesPattern: string
-  space: number | string
+  theme: {
+    baseFontSize: Theme
+    breakpoint: Theme
+    color: Theme
+    fontFamily: Theme
+    fontSize: Theme
+    fontWeight: Theme
+    letterSpacing: Theme
+    lineHeight: Theme
+    space: number | string
+  }
 }
 
 export interface ParsedClassName {

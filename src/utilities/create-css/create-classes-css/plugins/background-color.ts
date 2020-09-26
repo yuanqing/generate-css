@@ -5,7 +5,7 @@ export const backgroundColor: Plugin = {
     matches: Array<string>,
     config: Config
   ): { [property: string]: string } {
-    const color = config.color[matches[0]]
+    const color = config.theme.color[matches[0]]
     if (typeof color === 'undefined') {
       throw new Error(`Invalid background color: ${matches[0]}`)
     }

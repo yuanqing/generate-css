@@ -7,7 +7,7 @@ export const lineHeight: Plugin = {
     matches: Array<string>,
     config: Config
   ): { [property: string]: string } {
-    const lineHeight = config.lineHeight[matches[0]]
+    const lineHeight = config.theme.lineHeight[matches[0]]
     if (typeof lineHeight !== 'undefined') {
       return {
         'line-height': `${lineHeight}`

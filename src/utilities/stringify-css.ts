@@ -7,12 +7,14 @@ export function stringifyCss(
   const result = []
   for (const { breakpoint, cssDeclarationBlocks } of css) {
     if (breakpoint !== null) {
-      if (typeof config.breakpoint[breakpoint] === 'undefined') {
+      if (typeof config.theme.breakpoint[breakpoint] === 'undefined') {
         throw new Error(
           `Breakpoint not defined in configuration file: ${breakpoint}`
         )
       }
-      result.push(`@media (min-width: ${config.breakpoint[breakpoint]}) {`)
+      result.push(
+        `@media (min-width: ${config.theme.breakpoint[breakpoint]}) {`
+      )
     }
     result.push(stringifyCssDeclarationBlocks(cssDeclarationBlocks))
     if (breakpoint !== null) {

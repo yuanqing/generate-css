@@ -8,7 +8,7 @@ export const font: Plugin = {
     config: Config
   ): { [property: string]: string } {
     if (typeof matches[0] === 'undefined') {
-      const fontFamily = config.fontFamily.default
+      const fontFamily = config.theme.fontFamily.default
       if (fontFamily === 'undefined') {
         throw new Error(`Default font family not defined in configuration`)
       }
@@ -16,19 +16,19 @@ export const font: Plugin = {
         'font-family': `${fontFamily}`
       }
     }
-    const fontFamily = config.fontFamily[matches[0]]
+    const fontFamily = config.theme.fontFamily[matches[0]]
     if (typeof fontFamily !== 'undefined') {
       return {
         'font-family': `${fontFamily}`
       }
     }
-    const fontWeight = config.fontWeight[matches[0]]
+    const fontWeight = config.theme.fontWeight[matches[0]]
     if (typeof fontWeight !== 'undefined') {
       return {
         'font-weight': `${fontWeight}`
       }
     }
-    const fontSize = config.fontSize[matches[0]]
+    const fontSize = config.theme.fontSize[matches[0]]
     if (typeof fontSize !== 'undefined') {
       return {
         'font-size': `${fontSize}`
