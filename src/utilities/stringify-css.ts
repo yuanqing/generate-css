@@ -50,7 +50,7 @@ function stringifyCssDeclarationBlocks(
   return result.join('')
 }
 
-const specialCharactersRegex = /[/:]/
+const specialCharactersRegex = /[/:]/g
 
 function stringifySelector(selector: string) {
   return selector.replace(specialCharactersRegex, function (match: string) {
