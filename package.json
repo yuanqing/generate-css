@@ -23,20 +23,31 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "yarn run clean && concurrently --raw 'yarn run build-css' 'yarn run build-ts'",
+    "build-css": "cpy 'css/**/*.css' '../lib' --cwd src --parents",
+    "build-ts": "tsc",
     "clean": "rimraf '*.log' lib",
-    "fix": "eslint --fix '{src,test}/**/*.ts' && prettier --loglevel error --write '*.json'",
-    "lint": "eslint '{src,test}/**/*.ts'",
+    "fix": "concurrently --raw 'yarn run fix-css' 'yarn run fix-json' 'yarn run fix-ts'",
+    "fix-css": "stylelint --fix 'src/**/*.css'",
+    "fix-json": "prettier --loglevel error --write '*.json'",
+    "fix-ts": "eslint --fix '{src,test}/**/*.ts'",
+    "lint": "concurrently --raw 'yarn run lint-css' 'yarn run lint-ts'",
+    "lint-css": "stylelint 'src/**/*.css'",
+    "lint-ts": "eslint '{src,test}/**/*.ts'",
     "prepublishOnly": "yarn run clean && yarn run build",
     "reset": "yarn run clean && rimraf node_modules yarn.lock && yarn install",
-    "start": "ts-node src/cli.ts 'sandbox/*.html' --base sandbox/base.css --config sandbox/generate-css.config.json --output sandbox/style.css",
-    "watch": "tsc --watch"
+    "start": "node lib/cli.js 'sandbox/*.html' --prepend sandbox/prepend.css --append sandbox/append.css --config sandbox/generate-css.config.json --output sandbox/style.css",
+    "watch": "yarn run clean && concurrently --raw 'yarn run watch-css' 'yarn run watch-ts'",
+    "watch-css": "chokidar 'src/css/**/*.css' --command 'yarn run build-css' --initial --silent",
+    "watch-ts": "tsc --preserveWatchOutput --watch"
   },
   "dependencies": {
     "chokidar": "^3.4.2",
     "csso": "^4.0.3",
+    "find-up": "^5.0.0",
     "fs-extra": "^9.0.1",
     "globby": "^11.0.1",
+    "normalize.css": "^8.0.1",
     "npmlog": "^4.1.2",
     "prettier": "^2.1.2",
     "sade": "^1.7.3"
@@ -48,17 +59,21 @@
     "@types/npmlog": "^4.1.2",
     "@types/prettier": "^2.1.1",
     "@types/sade": "^1.7.2",
+    "chokidar-cli": "^2.1.0",
+    "concurrently": "^5.3.0",
+    "cpy-cli": "^3.1.1",
     "eslint": "^7.9.0",
     "eslint-config-yuanqing": "^0.0.3",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
-    "ts-node": "^9.0.0",
+    "stylelint": "^13.7.2",
+    "stylelint-config-yuanqing": "^0.0.1",
     "typescript": "^4.0.3"
   },
   "eslintConfig": {
-    "extends": "yuanqing"
+    "extends": "eslint-config-yuanqing"
   },
   "husky": {
     "hooks": {
@@ -68,7 +83,13 @@
   "lint-staged": {
     "*.ts": [
       "eslint"
+    ],
+    "*.css": [
+      "stylelint"
     ]
   },
-  "prettier": "eslint-config-yuanqing/prettier"
+  "prettier": "eslint-config-yuanqing/prettier",
+  "stylelint": {
+    "extends": "stylelint-config-yuanqing"
+  }
 }

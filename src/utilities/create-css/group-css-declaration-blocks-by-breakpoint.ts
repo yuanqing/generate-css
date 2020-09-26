@@ -34,9 +34,6 @@ function sortCssDeclarationBlocks(
   cssDeclarationBlocks: Array<CssDeclarationBlock>
 ) {
   return cssDeclarationBlocks.slice().sort(function (a, b) {
-    if (a.isClass === true) {
-      return b.isClass === true ? a.selector.localeCompare(b.selector) : 1
-    }
     if (a.pseudoClass === null) {
       return b.pseudoClass === null ? a.selector.localeCompare(b.selector) : -1
     }

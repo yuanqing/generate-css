@@ -30,25 +30,18 @@ function stringifyCssDeclarationBlocks(
     breakpoint,
     pseudoClass,
     selector,
-    declarations: declarations,
-    isClass
+    declarations: declarations
   } of cssDeclarationBlocks) {
-    if (isClass === true) {
-      result.push('.')
-      if (breakpoint !== null) {
-        result.push(`${breakpoint}\\:`)
-      }
+    result.push('.')
+    if (breakpoint !== null) {
+      result.push(`${breakpoint}\\:`)
     }
     if (pseudoClass !== null) {
       result.push(`${pseudoClass}\\:`)
     }
-    result.push(escapeSpecialCharacters(selector))
+    result.push(stringifySelector(selector))
     if (pseudoClass !== null) {
-      if (pseudoClass === 'selection') {
-        result.push(` *::${pseudoClass}`)
-      } else {
-        result.push(`:${pseudoClass}`)
-      }
+      result.push(stringifyPseudoClass(pseudoClass))
     }
     result.push(`{${stringifyDeclarations(declarations)}}`)
   }
@@ -57,10 +50,20 @@ function stringifyCssDeclarationBlocks(
 
 const specialCharactersRegex = /[/:]/
 
-function escapeSpecialCharacters(string: string) {
-  return string.replace(specialCharactersRegex, function (match: string) {
+function stringifySelector(selector: string) {
+  return selector.replace(specialCharactersRegex, function (match: string) {
     return `\\${match}`
   })
+}
+
+function stringifyPseudoClass(pseudoClass: string): string {
+  if (pseudoClass === 'selection') {
+    return ` *::${pseudoClass}`
+  }
+  if (pseudoClass === 'placeholder') {
+    return `::${pseudoClass}`
+  }
+  return `:${pseudoClass}`
 }
 
 function stringifyDeclarations(declarations: { [property: string]: string }) {

@@ -5,9 +5,10 @@ import { Config } from '../types'
 export async function readConfigAsync(
   configPath: string,
   options: {
-    baseCssFilesPattern: null | string
-    minify: boolean
+    appendCssFilesPattern: null | string
     outputPath: null | string
+    prependCssFilesPattern: null | string
+    prettyPrint: boolean
     sourceFilesPattern: string
   }
 ): Promise<Config> {

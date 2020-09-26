@@ -1,5 +1,5 @@
 export type Config = {
-  baseCssFilesPattern: null | string
+  appendCssFilesPattern: null | string
   baseFontSize: {
     [key: string]: string
   }
@@ -24,8 +24,10 @@ export type Config = {
   lineHeight: {
     [key: string]: string
   }
-  minify: boolean
   outputPath: null | string
+  prependCssFilesPattern: null | string
+  prettyPrint: boolean
+  reset: boolean
   sourceFilesPattern: string
   space: number | string
 }
@@ -42,7 +44,6 @@ export type CssDeclarationBlocks = {
 }
 export interface CssDeclarationBlock extends ParsedClassName {
   declarations: Declarations
-  isClass: boolean
 }
 export type Declarations = { [property: string]: string }
 
