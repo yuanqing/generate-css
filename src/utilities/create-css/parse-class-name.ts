@@ -1,6 +1,6 @@
 import { Config, ParsedClassName } from '../../types'
 
-const classRegex = /(?:([^:]+):)?(?:([^:]+):)?(.+)/
+const classRegex = /^(?:([^:]+):)?(?:([^:]+):)?(.+)$/
 
 export function parseClassName(
   className: string,
@@ -18,7 +18,7 @@ export function parseClassName(
     if (typeof config.theme.breakpoint[matches[1]] === 'undefined') {
       return {
         breakpoint: null,
-        pseudoClass: matches[1],
+        pseudoClass: parsePseudoClass(matches[1]),
         selector: matches[3]
       }
     }
@@ -30,7 +30,28 @@ export function parseClassName(
   }
   return {
     breakpoint: matches[1],
-    pseudoClass: matches[2],
+    pseudoClass: parsePseudoClass(matches[2]),
     selector: matches[3]
+  }
+}
+
+const groupPseudoClassRegex = /^group-(.+)$/
+
+function parsePseudoClass(
+  pseudoClass: string
+): {
+  value: string
+  isGroup: boolean
+} {
+  const matches = pseudoClass.match(groupPseudoClassRegex)
+  if (matches === null) {
+    return {
+      isGroup: false,
+      value: pseudoClass
+    }
+  }
+  return {
+    isGroup: true,
+    value: matches[1]
   }
 }

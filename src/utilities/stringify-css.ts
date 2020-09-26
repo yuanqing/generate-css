@@ -30,20 +30,27 @@ function stringifyCssDeclarationBlocks(
   const result = []
   for (const {
     breakpoint,
+    declarations,
     pseudoClass,
-    selector,
-    declarations: declarations
+    selector
   } of cssDeclarationBlocks) {
+    if (pseudoClass !== null) {
+      result.push(`.group${stringifyPseudoClass(pseudoClass.value)} `)
+    }
     result.push('.')
     if (breakpoint !== null) {
       result.push(`${breakpoint}\\:`)
     }
     if (pseudoClass !== null) {
-      result.push(`${pseudoClass}\\:`)
+      if (pseudoClass.isGroup === true) {
+        result.push(`group-${pseudoClass.value}\\:`)
+      } else {
+        result.push(`${pseudoClass.value}\\:`)
+      }
     }
     result.push(stringifySelector(selector))
-    if (pseudoClass !== null) {
-      result.push(stringifyPseudoClass(pseudoClass))
+    if (pseudoClass !== null && pseudoClass.isGroup === false) {
+      result.push(stringifyPseudoClass(pseudoClass.value))
     }
     result.push(`{${stringifyDeclarations(declarations)}}`)
   }

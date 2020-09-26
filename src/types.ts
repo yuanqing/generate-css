@@ -24,8 +24,13 @@ export type Config = {
 
 export interface ParsedClassName {
   breakpoint: null | string
-  pseudoClass: null | string
+  pseudoClass: null | PseudoClass
   selector: string
+}
+
+export type PseudoClass = {
+  isGroup: boolean
+  value: string
 }
 
 export type CssDeclarationBlocks = {
