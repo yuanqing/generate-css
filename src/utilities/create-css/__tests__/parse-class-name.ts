@@ -4,14 +4,14 @@ import { parseClassName } from '../parse-class-name'
 
 test('empty string', function (t) {
   t.plan(1)
-  t.throws(function () {
+  t.throw(function () {
     parseClassName('', [])
   })
 })
 
 test('invalid class name', function (t) {
   t.plan(1)
-  t.throws(function () {
+  t.throw(function () {
     parseClassName(':', [])
   })
 })
@@ -27,7 +27,7 @@ test('plain selector', function (t) {
 
 test('invalid media query', function (t) {
   t.plan(1)
-  t.throws(function () {
+  t.throw(function () {
     parseClassName('sm@block', [])
   })
 })
