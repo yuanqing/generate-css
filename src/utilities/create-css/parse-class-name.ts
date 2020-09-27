@@ -1,10 +1,10 @@
-import { Config, ParsedClassName } from '../../types'
+import { ParsedClassName, Theme } from '../../types'
 
 const classRegex = /^(?:([^@]+)@)?([^:]+)(?::(.+))?$/
 
 export function parseClassName(
   className: string,
-  config: Config
+  theme: Theme
 ): ParsedClassName {
   const matches = className.match(classRegex)
   if (matches === null) {
@@ -16,7 +16,7 @@ export function parseClassName(
   }
   const breakpoint =
     typeof matches[1] === 'undefined' ||
-    typeof config.theme.breakpoint[matches[1]] === 'undefined'
+    typeof theme.breakpoint[matches[1]] === 'undefined'
       ? null
       : matches[1]
   return {

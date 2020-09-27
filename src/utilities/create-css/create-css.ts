@@ -1,4 +1,4 @@
-import { Config, CssDeclarationBlock, CssDeclarationBlocks } from '../../types'
+import { CssDeclarationBlock, CssDeclarationBlocks, Theme } from '../../types'
 import { formatValueFactory } from './format-value-factory'
 import { groupCssDeclarationBlocksByBreakpoint } from './group-css-declaration-blocks-by-breakpoint'
 import { mapSelectorToDeclaration } from './map-selector-to-declaration'
@@ -7,17 +7,14 @@ import { plugins } from './plugins'
 
 export function createCss(
   classNames: Array<string>,
-  config: Config
+  theme: Theme
 ): Array<CssDeclarationBlocks> {
-  const formatValue = formatValueFactory(
-    config.theme.breakpoint,
-    config.theme.space
-  )
+  const formatValue = formatValueFactory(theme.breakpoint, theme.space)
   const result: Array<CssDeclarationBlock> = []
   for (const className of classNames) {
     const cssDeclarationBlock = createCssDeclarationBlock(
       className,
-      config,
+      theme,
       formatValue
     )
     if (cssDeclarationBlock === null) {
@@ -30,13 +27,10 @@ export function createCss(
 
 function createCssDeclarationBlock(
   className: string,
-  config: Config,
+  theme: Theme,
   formatValue: (value: string) => null | string
 ): null | CssDeclarationBlock {
-  const { breakpoint, pseudoClass, selector } = parseClassName(
-    className,
-    config
-  )
+  const { breakpoint, pseudoClass, selector } = parseClassName(className, theme)
   const declarations = mapSelectorToDeclaration(selector)
   if (declarations !== null) {
     return {
@@ -54,11 +48,11 @@ function createCssDeclarationBlock(
       return {
         breakpoint,
         className,
-        declarations: plugin.createDeclarations(
-          matches.slice(1),
-          config,
-          formatValue
-        ),
+        declarations: plugin.createDeclarations({
+          formatValue,
+          matches,
+          theme
+        }),
         pseudoClass,
         selector
       }

@@ -1,17 +1,19 @@
-import { Config, Plugin } from '../../../types'
+import { Plugin } from '../../../types'
 
 export const marginAndPadding: Plugin = {
-  createDeclarations: function (
-    matches: Array<string>,
-    _: Config,
+  createDeclarations: function ({
+    matches,
+    formatValue
+  }: {
+    matches: RegExpMatchArray
     formatValue: (value: string) => null | string
-  ): { [property: string]: string } {
-    const prefix = matches[0] === 'm' ? 'margin' : 'padding'
-    const value = formatValue(matches[2])
+  }): { [property: string]: string } {
+    const prefix = matches[1] === 'm' ? 'margin' : 'padding'
+    const value = formatValue(matches[3])
     if (value === null) {
-      throw new Error(`Invalid value: ${matches[2]}`)
+      throw new Error(`Invalid value: ${matches[3]}`)
     }
-    switch (matches[1]) {
+    switch (matches[2]) {
       case 'x': {
         return {
           [`${prefix}-right`]: value,

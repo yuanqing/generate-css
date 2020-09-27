@@ -1,14 +1,17 @@
-import { Config, Plugin } from '../../../types'
+import { Plugin, Theme } from '../../../types'
 
 const digitsRegex = /^\d+$/
 
 export const font: Plugin = {
-  createDeclarations: function (
-    matches: Array<string>,
-    config: Config
-  ): { [property: string]: string } {
-    if (typeof matches[0] === 'undefined') {
-      const fontFamily = config.theme.fontFamily.default
+  createDeclarations: function ({
+    matches,
+    theme
+  }: {
+    matches: RegExpMatchArray
+    theme: Theme
+  }): { [property: string]: string } {
+    if (typeof matches[1] === 'undefined') {
+      const fontFamily = theme.fontFamily.default
       if (fontFamily === 'undefined') {
         throw new Error(`Default font family not defined in configuration`)
       }
@@ -16,30 +19,30 @@ export const font: Plugin = {
         'font-family': `${fontFamily}`
       }
     }
-    const fontFamily = config.theme.fontFamily[matches[0]]
+    const fontFamily = theme.fontFamily[matches[1]]
     if (typeof fontFamily !== 'undefined') {
       return {
         'font-family': `${fontFamily}`
       }
     }
-    const fontWeight = config.theme.fontWeight[matches[0]]
+    const fontWeight = theme.fontWeight[matches[1]]
     if (typeof fontWeight !== 'undefined') {
       return {
         'font-weight': `${fontWeight}`
       }
     }
-    const fontSize = config.theme.fontSize[matches[0]]
+    const fontSize = theme.fontSize[matches[1]]
     if (typeof fontSize !== 'undefined') {
       return {
         'font-size': `${fontSize}`
       }
     }
-    if (digitsRegex.test(matches[0]) === true) {
+    if (digitsRegex.test(matches[1]) === true) {
       return {
-        'font-size': `${matches[0]}px`
+        'font-size': `${matches[1]}px`
       }
     }
-    throw new Error(`Invalid font size: ${matches[0]}`)
+    throw new Error(`Invalid font size: ${matches[1]}`)
   },
   regex: /^font(?:-(.+))?$/
 }

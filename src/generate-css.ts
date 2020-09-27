@@ -13,7 +13,7 @@ import { stringifyCss } from './utilities/stringify-css'
 
 export async function generateCssAsync(config: Config): Promise<void> {
   const classNames = await extractClassNamesAsync(config.sourceFilesPattern)
-  const generatedCss = stringifyCss(createCss(classNames, config), config)
+  const generatedCss = stringifyCss(createCss(classNames, config.theme), config)
   const prependCss =
     config.prependCssFilesPattern === null
       ? ''

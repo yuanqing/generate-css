@@ -1,11 +1,13 @@
 import { Plugin } from '../../../types'
 
 export const borderWidth: Plugin = {
-  createDeclarations: function (
-    matches: Array<string>
-  ): { [property: string]: string } {
-    const value = matches[1] === '0' ? matches[1] : `${matches[1]}px`
-    switch (matches[0]) {
+  createDeclarations: function ({
+    matches
+  }: {
+    matches: RegExpMatchArray
+  }): { [property: string]: string } {
+    const value = matches[2] === '0' ? matches[2] : `${matches[2]}px`
+    switch (matches[1]) {
       case 'x': {
         return {
           'border-left-width': value,

@@ -1,24 +1,27 @@
-import { Config, Plugin } from '../../../types'
+import { Plugin, Theme } from '../../../types'
 
 const digitsRegex = /\d+/
 
 export const letterSpacing: Plugin = {
-  createDeclarations: function (
-    matches: Array<string>,
-    config: Config
-  ): { [property: string]: string } {
-    const letterSpacing = config.theme.letterSpacing[matches[0]]
+  createDeclarations: function ({
+    matches,
+    theme
+  }: {
+    matches: RegExpMatchArray
+    theme: Theme
+  }): { [property: string]: string } {
+    const letterSpacing = theme.letterSpacing[matches[1]]
     if (typeof letterSpacing !== 'undefined') {
       return {
         'letter-spacing': `${letterSpacing}`
       }
     }
-    if (digitsRegex.test(matches[0]) === true) {
+    if (digitsRegex.test(matches[1]) === true) {
       return {
-        'letter-spacing': `${matches[0]}px`
+        'letter-spacing': `${matches[1]}px`
       }
     }
-    throw new Error(`Invalid letter-spacing: ${matches[0]}`)
+    throw new Error(`Invalid letter-spacing: ${matches[1]}`)
   },
   regex: /^(?:kerning|letter-spacing|tracking)-(.+)$/
 }

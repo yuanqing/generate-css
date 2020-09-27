@@ -1,7 +1,3 @@
-type Theme = {
-  [key: string]: string
-}
-
 export type Config = {
   appendCssFilesPattern: null | string
   outputPath: null | string
@@ -9,17 +5,23 @@ export type Config = {
   prettyPrint: boolean
   reset: boolean
   sourceFilesPattern: string
-  theme: {
-    baseFontSize: Theme
-    breakpoint: Theme
-    color: Theme
-    fontFamily: Theme
-    fontSize: Theme
-    fontWeight: Theme
-    letterSpacing: Theme
-    lineHeight: Theme
-    space: number | string
-  }
+  theme: Theme
+}
+
+export type Theme = {
+  baseFontSize: ThemeItem
+  breakpoint: ThemeItem
+  color: ThemeItem
+  fontFamily: ThemeItem
+  fontSize: ThemeItem
+  fontWeight: ThemeItem
+  letterSpacing: ThemeItem
+  lineHeight: ThemeItem
+  space: number | string
+}
+
+type ThemeItem = {
+  [key: string]: string
 }
 
 export interface ParsedClassName {
@@ -45,9 +47,9 @@ export type Declarations = { [property: string]: string }
 
 export type Plugin = {
   regex: RegExp
-  createDeclarations: (
-    matches: Array<string>,
-    config: Config,
+  createDeclarations: (options: {
+    matches: RegExpMatchArray
+    theme: Theme
     formatValue: (value: string) => null | string
-  ) => { [property: string]: string }
+  }) => { [property: string]: string }
 }

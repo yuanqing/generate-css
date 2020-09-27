@@ -1,24 +1,27 @@
-import { Config, Plugin } from '../../../types'
+import { Plugin, Theme } from '../../../types'
 
 const digitsRegex = /\d+/
 
 export const lineHeight: Plugin = {
-  createDeclarations: function (
-    matches: Array<string>,
-    config: Config
-  ): { [property: string]: string } {
-    const lineHeight = config.theme.lineHeight[matches[0]]
+  createDeclarations: function ({
+    matches,
+    theme
+  }: {
+    matches: RegExpMatchArray
+    theme: Theme
+  }): { [property: string]: string } {
+    const lineHeight = theme.lineHeight[matches[1]]
     if (typeof lineHeight !== 'undefined') {
       return {
         'line-height': `${lineHeight}`
       }
     }
-    if (digitsRegex.test(matches[0]) === true) {
+    if (digitsRegex.test(matches[1]) === true) {
       return {
-        'line-height': `${matches[0]}px`
+        'line-height': `${matches[1]}px`
       }
     }
-    throw new Error(`Invalid line-height: ${matches[0]}`)
+    throw new Error(`Invalid line-height: ${matches[1]}`)
   },
   regex: /^(?:leading|line-height)-(.+)$/
 }

@@ -1,24 +1,27 @@
-import { Config, Plugin } from '../../../types'
+import { Plugin, Theme } from '../../../types'
 
 export const textStyle: Plugin = {
-  createDeclarations: function (
-    matches: Array<string>,
-    config: Config
-  ): { [property: string]: string } {
+  createDeclarations: function ({
+    matches,
+    theme
+  }: {
+    matches: RegExpMatchArray
+    theme: Theme
+  }): { [property: string]: string } {
     const result: { [property: string]: string } = {}
-    const fontSize = config.theme.fontSize[matches[0]]
+    const fontSize = theme.fontSize[matches[1]]
     if (typeof fontSize !== 'undefined') {
       result['font-size'] = fontSize
     }
-    const fontWeight = config.theme.fontWeight[matches[0]]
+    const fontWeight = theme.fontWeight[matches[1]]
     if (typeof fontWeight !== 'undefined') {
       result['font-weight'] = fontWeight
     }
-    const letterSpacing = config.theme.letterSpacing[matches[0]]
+    const letterSpacing = theme.letterSpacing[matches[1]]
     if (typeof letterSpacing !== 'undefined') {
       result['letter-spacing'] = letterSpacing
     }
-    const lineHeight = config.theme.lineHeight[matches[0]]
+    const lineHeight = theme.lineHeight[matches[1]]
     if (typeof lineHeight !== 'undefined') {
       result['line-height'] = lineHeight
     }
