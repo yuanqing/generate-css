@@ -28,27 +28,12 @@ function stringifyCssDeclarationBlocks(
   cssDeclarationBlocks: Array<CssDeclarationBlock>
 ): string {
   const result = []
-  for (const {
-    breakpoint,
-    declarations,
-    pseudoClass,
-    selector
-  } of cssDeclarationBlocks) {
-    if (pseudoClass !== null) {
+  for (const { className, declarations, pseudoClass } of cssDeclarationBlocks) {
+    if (pseudoClass !== null && pseudoClass.isGroup === true) {
       result.push(`.group${stringifyPseudoClass(pseudoClass.value)} `)
     }
     result.push('.')
-    if (breakpoint !== null) {
-      result.push(`${breakpoint}\\:`)
-    }
-    if (pseudoClass !== null) {
-      if (pseudoClass.isGroup === true) {
-        result.push(`group-${pseudoClass.value}\\:`)
-      } else {
-        result.push(`${pseudoClass.value}\\:`)
-      }
-    }
-    result.push(stringifySelector(selector))
+    result.push(escapeSpecialCharacters(className))
     if (pseudoClass !== null && pseudoClass.isGroup === false) {
       result.push(stringifyPseudoClass(pseudoClass.value))
     }
@@ -57,17 +42,17 @@ function stringifyCssDeclarationBlocks(
   return result.join('')
 }
 
-const specialCharactersRegex = /[/:]/g
+const specialCharactersRegex = /[/:@%]/g
 
-function stringifySelector(selector: string) {
-  return selector.replace(specialCharactersRegex, function (match: string) {
+function escapeSpecialCharacters(string: string) {
+  return string.replace(specialCharactersRegex, function (match: string) {
     return `\\${match}`
   })
 }
 
 function stringifyPseudoClass(pseudoClass: string): string {
   if (pseudoClass === 'selection') {
-    return ` *::${pseudoClass}`
+    return ` ::${pseudoClass}`
   }
   if (pseudoClass === 'placeholder') {
     return `::${pseudoClass}`

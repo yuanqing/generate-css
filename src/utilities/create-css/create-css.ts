@@ -41,6 +41,7 @@ function createCssDeclarationBlock(
   if (declarations !== null) {
     return {
       breakpoint,
+      className,
       declarations,
       pseudoClass,
       selector
@@ -52,6 +53,7 @@ function createCssDeclarationBlock(
     if (matches !== null) {
       return {
         breakpoint,
+        className,
         declarations: plugin.createDeclarations(
           matches.slice(1),
           config,

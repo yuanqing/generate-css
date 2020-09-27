@@ -38,6 +38,7 @@ export type CssDeclarationBlocks = {
   cssDeclarationBlocks: Array<CssDeclarationBlock>
 }
 export interface CssDeclarationBlock extends ParsedClassName {
+  className: string
   declarations: Declarations
 }
 export type Declarations = { [property: string]: string }

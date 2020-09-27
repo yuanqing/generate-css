@@ -1,37 +1,29 @@
 import { Config, ParsedClassName } from '../../types'
 
-const classRegex = /^(?:([^:]+):)?(?:([^:]+):)?(.+)$/
+const classRegex = /^(?:([^@]+)@)?([^:]+)(?::(.+))?$/
 
 export function parseClassName(
   className: string,
   config: Config
 ): ParsedClassName {
   const matches = className.match(classRegex)
-  if (matches === null || typeof matches[1] === 'undefined') {
+  if (matches === null) {
     return {
       breakpoint: null,
       pseudoClass: null,
       selector: className
     }
   }
-  if (typeof matches[2] === 'undefined') {
-    if (typeof config.theme.breakpoint[matches[1]] === 'undefined') {
-      return {
-        breakpoint: null,
-        pseudoClass: parsePseudoClass(matches[1]),
-        selector: matches[3]
-      }
-    }
-    return {
-      breakpoint: matches[1],
-      pseudoClass: null,
-      selector: matches[3]
-    }
-  }
+  const breakpoint =
+    typeof matches[1] === 'undefined' ||
+    typeof config.theme.breakpoint[matches[1]] === 'undefined'
+      ? null
+      : matches[1]
   return {
-    breakpoint: matches[1],
-    pseudoClass: parsePseudoClass(matches[2]),
-    selector: matches[3]
+    breakpoint: breakpoint,
+    pseudoClass:
+      typeof matches[3] === 'undefined' ? null : parsePseudoClass(matches[3]),
+    selector: matches[2]
   }
 }
 
