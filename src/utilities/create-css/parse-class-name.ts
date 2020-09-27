@@ -11,11 +11,7 @@ export function parseClassName(
   }
   const matches = className.match(classRegex)
   if (matches === null) {
-    return {
-      breakpoint: null,
-      pseudoClass: null,
-      selector: className
-    }
+    throw new Error(`Invalid class name: ${className}`)
   }
   const breakpoint = typeof matches[1] === 'undefined' ? null : matches[1]
   if (breakpoint !== null && breakpoints.indexOf(breakpoint) === -1) {

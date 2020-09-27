@@ -9,6 +9,13 @@ test('empty string', function (t) {
   })
 })
 
+test('invalid class name', function (t) {
+  t.plan(1)
+  t.throws(function () {
+    parseClassName(':', [])
+  })
+})
+
 test('plain selector', function (t) {
   t.plan(1)
   t.deepEqual(parseClassName('block', []), {
