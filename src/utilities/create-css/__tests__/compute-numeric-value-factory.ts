@@ -15,12 +15,24 @@ test('invalid `value`', function (t) {
   t.equal(computeNumericValue('foo', []), null)
 })
 
-test('breakpoint `value`', function (t) {
-  t.plan(1)
+test('theme `value`, single `themeKey`', function (t) {
+  t.plan(2)
   const computeNumericValue = computeNumericValueFactory({
-    breakpoint: { sm: '320px' }
+    breakpoint: { sm: '320px' },
+    padding: { sm: '8px' }
   })
   t.equal(computeNumericValue('sm', ['breakpoint']), '320px')
+  t.equal(computeNumericValue('sm', ['padding']), '8px')
+})
+
+test('theme `value`, multiple `themeKey`', function (t) {
+  t.plan(2)
+  const computeNumericValue = computeNumericValueFactory({
+    breakpoint: { sm: '320px' },
+    padding: { sm: '8px' }
+  })
+  t.equal(computeNumericValue('sm', ['breakpoint', 'padding']), '320px')
+  t.equal(computeNumericValue('sm', ['padding', 'breakpoint']), '8px')
 })
 
 test('auto `value`', function (t) {
