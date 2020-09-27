@@ -1,15 +1,18 @@
-import { Plugin } from '../../../types'
+import { Plugin, ThemeKeys } from '../../../types'
 
 export const marginAndPadding: Plugin = {
   createDeclarations: function ({
     matches,
-    formatValue
+    computeNumericValue
   }: {
     matches: RegExpMatchArray
-    formatValue: (value: string) => null | string
+    computeNumericValue: (
+      value: string,
+      themeKeys: Array<ThemeKeys>
+    ) => null | string
   }): { [property: string]: string } {
     const prefix = matches[1] === 'm' ? 'margin' : 'padding'
-    const value = formatValue(matches[3])
+    const value = computeNumericValue(matches[3], [prefix, 'breakpoint'])
     if (value === null) {
       throw new Error(`Invalid ${prefix} value: ${matches[3]}`)
     }

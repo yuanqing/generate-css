@@ -1,49 +1,57 @@
-import { Plugin } from '../../../types'
+import { Plugin, ThemeKeys } from '../../../types'
 
 export const borderWidth: Plugin = {
   createDeclarations: function ({
-    matches
+    matches,
+    computeNumericValue
   }: {
     matches: RegExpMatchArray
+    computeNumericValue: (
+      value: string,
+      themeKeys: Array<ThemeKeys>
+    ) => null | string
   }): { [property: string]: string } {
-    const value = matches[2] === '0' ? matches[2] : `${matches[2]}px`
+    const borderWidth = computeNumericValue(matches[2], ['borderWidth'])
+    if (borderWidth === null) {
+      throw new Error(`Invalid border width: ${matches[2]}`)
+    }
     switch (matches[1]) {
       case 'x': {
         return {
-          'border-left-width': value,
-          'border-right-width': value
+          'border-left-width': borderWidth,
+          'border-right-width': borderWidth
         }
       }
       case 'y': {
         return {
-          'border-bottom-width': value,
-          'border-top-width': value
+          'border-bottom-width': borderWidth,
+          'border-top-width': borderWidth
         }
       }
       case 't': {
         return {
-          'border-top-width': value
+          'border-top-width': borderWidth
         }
       }
       case 'r': {
         return {
-          'border-right-width': value
+          'border-right-width': borderWidth
         }
       }
       case 'b': {
         return {
-          'border-bottom-width': value
+          'border-bottom-width': borderWidth
         }
       }
       case 'l': {
         return {
-          'border-left-width': value
+          'border-left-width': borderWidth
         }
       }
     }
     return {
-      'border-width': value
+      'border-width': borderWidth
     }
   },
-  regex: /^b([xytrbl])?-(\d)$/
+  regex: /^b([xytrbl])?-(.+)$/
 }

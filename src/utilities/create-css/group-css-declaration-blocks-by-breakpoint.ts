@@ -3,6 +3,9 @@ import { CssDeclarationBlock, CssDeclarationBlocks } from '../../types'
 export function groupCssDeclarationBlocksByBreakpoint(
   cssDeclarationBlocks: Array<CssDeclarationBlock>
 ): Array<CssDeclarationBlocks> {
+  if (cssDeclarationBlocks.length === 0) {
+    return []
+  }
   const base = []
   const breakpoints: { [breakpoint: string]: Array<CssDeclarationBlock> } = {}
   for (const cssDeclarationBlock of cssDeclarationBlocks) {

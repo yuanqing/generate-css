@@ -1,12 +1,15 @@
-import { Plugin, Theme } from '../../../types'
-
-const digitsRegex = /^\d+$/
+import { Plugin, Theme, ThemeKeys } from '../../../types'
 
 export const font: Plugin = {
   createDeclarations: function ({
+    computeNumericValue,
     matches,
     theme
   }: {
+    computeNumericValue: (
+      value: string,
+      themeKeys: Array<ThemeKeys>
+    ) => null | string
     matches: RegExpMatchArray
     theme: Theme
   }): { [property: string]: string } {
@@ -38,20 +41,13 @@ export const font: Plugin = {
         }
       }
     }
-    if (typeof theme.fontSize !== 'undefined') {
-      const fontSize = theme.fontSize[matches[1]]
-      if (typeof fontSize !== 'undefined') {
-        return {
-          'font-size': `${fontSize}`
-        }
-      }
+    const fontSize = computeNumericValue(matches[1], ['fontSize'])
+    if (fontSize === null) {
+      throw new Error(`Invalid font size: ${matches[1]}`)
     }
-    if (digitsRegex.test(matches[1]) === true) {
-      return {
-        'font-size': `${matches[1]}px`
-      }
+    return {
+      'font-size': `${fontSize}`
     }
-    throw new Error(`Invalid font class name: ${matches[0]}`)
   },
-  regex: /^font(?:-(.+))?$/
+  regex: /^font-(.+)$/
 }

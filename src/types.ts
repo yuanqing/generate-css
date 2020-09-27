@@ -9,20 +9,30 @@ export type Config = {
 }
 
 export type Theme = {
+  backgroundColor?: ThemeItem
   baseFontSize?: ThemeItem
+  borderColor?: ThemeItem
+  borderRadius?: ThemeItem
+  borderWidth?: ThemeItem
   breakpoint?: ThemeItem
   color?: ThemeItem
   fontFamily?: ThemeItem
   fontSize?: ThemeItem
   fontWeight?: ThemeItem
+  height?: ThemeItem
   letterSpacing?: ThemeItem
   lineHeight?: ThemeItem
-  space?: number | string
+  margin?: ThemeItem
+  padding?: ThemeItem
+  space?: string
+  width?: ThemeItem
 }
 
-type ThemeItem = {
+export type ThemeItem = {
   [key: string]: string
 }
+
+export type ThemeKeys = Exclude<keyof Theme, 'space'>
 
 export interface ParsedClassName {
   breakpoint: null | string
@@ -48,8 +58,15 @@ export type Declarations = { [property: string]: string }
 export type Plugin = {
   regex: RegExp
   createDeclarations: (options: {
+    computeColorValue: (
+      value: string,
+      themeKeys: Array<ThemeKeys>
+    ) => null | string
+    computeNumericValue: (
+      value: string,
+      themeKeys: Array<ThemeKeys>
+    ) => null | string
     matches: RegExpMatchArray
     theme: Theme
-    formatValue: (value: string) => null | string
   }) => { [property: string]: string }
 }

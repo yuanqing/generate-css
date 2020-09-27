@@ -1,18 +1,18 @@
-import { Plugin, Theme } from '../../../types'
+import { Plugin, ThemeKeys } from '../../../types'
 
 export const borderColor: Plugin = {
   createDeclarations: function ({
     matches,
-    theme
+    computeColorValue
   }: {
     matches: RegExpMatchArray
-    theme: Theme
+    computeColorValue: (
+      value: string,
+      themeKeys: Array<ThemeKeys>
+    ) => null | string
   }): { [property: string]: string } {
-    if (typeof theme.color === 'undefined') {
-      throw new Error('`theme.color` not defined in configuration')
-    }
-    const borderColor = theme.color[matches[1]]
-    if (typeof borderColor === 'undefined') {
+    const borderColor = computeColorValue(matches[1], ['borderColor', 'color'])
+    if (borderColor === null) {
       throw new Error(`Invalid border color: ${matches[1]}`)
     }
     return {

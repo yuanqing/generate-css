@@ -1,16 +1,19 @@
-import { Plugin } from '../../../types'
+import { Plugin, ThemeKeys } from '../../../types'
 
 export const widthAndHeight: Plugin = {
   createDeclarations: function ({
     matches,
-    formatValue
+    computeNumericValue
   }: {
     matches: RegExpMatchArray
-    formatValue: (value: string) => null | string
+    computeNumericValue: (
+      value: string,
+      themeKeys: Array<ThemeKeys>
+    ) => null | string
   }): { [property: string]: string } {
     const prefix = typeof matches[1] === 'undefined' ? '' : `${matches[1]}-`
     const suffix = matches[2] === 'w' ? 'width' : 'height'
-    const value = formatValue(matches[3])
+    const value = computeNumericValue(matches[3], [suffix, 'breakpoint'])
     if (value === null) {
       throw new Error(`Invalid ${prefix} value: ${matches[3]}`)
     }

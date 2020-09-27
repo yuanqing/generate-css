@@ -1,25 +1,18 @@
-import { Plugin, Theme } from '../../../types'
-
-const digitsRegex = /^\d+$/
+import { Plugin, ThemeKeys } from '../../../types'
 
 export const letterSpacing: Plugin = {
   createDeclarations: function ({
-    matches,
-    theme
+    computeNumericValue,
+    matches
   }: {
+    computeNumericValue: (
+      value: string,
+      themeKeys: Array<ThemeKeys>
+    ) => null | string
     matches: RegExpMatchArray
-    theme: Theme
   }): { [property: string]: string } {
-    if (digitsRegex.test(matches[1]) === true) {
-      return {
-        'letter-spacing': `${matches[1]}px`
-      }
-    }
-    if (typeof theme.letterSpacing === 'undefined') {
-      throw new Error('`theme.letterSpacing` not defined in configuration')
-    }
-    const letterSpacing = theme.letterSpacing[matches[1]]
-    if (typeof letterSpacing === 'undefined') {
+    const letterSpacing = computeNumericValue(matches[1], ['letterSpacing'])
+    if (letterSpacing === null) {
       throw new Error(`Invalid letter-spacing: ${matches[1]}`)
     }
     return {

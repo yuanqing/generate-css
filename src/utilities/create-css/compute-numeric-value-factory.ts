@@ -1,18 +1,24 @@
+import { Theme, ThemeItem, ThemeKeys } from '../../types'
+
 const pixelValueRegex = /^\d+px$/
 const fractionRegex = /^(\d+)\/(\d+)$/
 const integerRegex = /^\d+$/
 
-export function formatValueFactory(
-  breakpoints?: { [key: string]: string },
-  space?: number | string
-): (value: string) => null | string {
-  const parsedSpace = parseSpace(space)
-  return function (value: string): null | string {
-    if (
-      typeof breakpoints !== 'undefined' &&
-      typeof breakpoints[value] !== 'undefined'
-    ) {
-      return breakpoints[value]
+export function computeNumericValueFactory(
+  theme: Theme
+): (value: string, themeKeys: Array<ThemeKeys>) => null | string {
+  const parsedSpace = parseSpace(theme.space)
+  return function (value: string, themeKeys: Array<ThemeKeys>): null | string {
+    for (const themeKey of themeKeys) {
+      if (
+        typeof themeKey !== 'undefined' &&
+        typeof theme[themeKey] !== 'undefined'
+      ) {
+        const result = (theme[themeKey] as ThemeItem)[value]
+        if (typeof result !== 'undefined') {
+          return result
+        }
+      }
     }
     switch (value) {
       case 'auto': {
@@ -28,7 +34,7 @@ export function formatValueFactory(
     let matches
     matches = value.match(pixelValueRegex)
     if (matches !== null) {
-      return matches[0] === '0px' ? '0' : matches[0]
+      return matches[0]
     }
     matches = value.match(fractionRegex)
     if (matches !== null) {
@@ -52,17 +58,9 @@ export function formatValueFactory(
 
 const valueAndUnitRegex = /((?:\d*\.)?\d+) ?([A-Za-z]+)/
 
-function parseSpace(
-  space?: number | string
-): null | { value: number; unit: string } {
+function parseSpace(space?: string): null | { value: number; unit: string } {
   if (typeof space === 'undefined') {
     return null
-  }
-  if (typeof space === 'number') {
-    return {
-      unit: 'px',
-      value: space
-    }
   }
   const matches = space.match(valueAndUnitRegex)
   if (matches === null) {
