@@ -1,7 +1,9 @@
-const valueRegex = /^(\d+px)|((\d+)\/(\d+))|(\d+)$/
+const pixelValueRegex = /^\d+px$/
+const fractionRegex = /^(\d+)\/(\d+)$/
+const integerRegex = /^\d+$/
 
 export function formatValueFactory(
-  breakpoints: { [breakpoint: string]: string },
+  breakpoints: { [name: string]: string },
   space: number | string
 ): (value: string) => null | string {
   const parsedSpace = parseSpace(space)
@@ -20,34 +22,34 @@ export function formatValueFactory(
         return '1px'
       }
     }
-    const matches = value.match(valueRegex)
-    if (matches === null) {
-      return null
+    let matches
+    matches = value.match(pixelValueRegex)
+    if (matches !== null) {
+      return matches[0] === '0px' ? '0' : matches[0]
     }
-    if (typeof matches[1] !== 'undefined') {
-      return matches[1] === '0px' ? '0' : matches[1]
-    }
-    if (typeof matches[2] !== 'undefined') {
+    matches = value.match(fractionRegex)
+    if (matches !== null) {
       return `${formatNumber(
-        (parseFloat(matches[3]) / parseFloat(matches[4])) * 100
+        (parseFloat(matches[1]) / parseFloat(matches[2])) * 100
       )}%`
     }
-    if (typeof matches[5] !== 'undefined') {
-      if (matches[5] === '0') {
+    matches = value.match(integerRegex)
+    if (matches !== null) {
+      if (matches[0] === '0') {
         return '0'
       }
-      return `${parseFloat(matches[5]) * parsedSpace.value}${parsedSpace.unit}`
+      return `${parseFloat(matches[0]) * parsedSpace.value}${parsedSpace.unit}`
     }
     return null
   }
 }
 
-const valueAndUnitRegex = /([\d.]+)([A-Za-z]+)?/
+const valueAndUnitRegex = /((?:\d*\.)?\d+) ?([A-Za-z]+)/
 
 function parseSpace(space: number | string): { value: number; unit: string } {
   if (typeof space === 'number') {
     return {
-      unit: '',
+      unit: 'px',
       value: space
     }
   }
@@ -55,9 +57,8 @@ function parseSpace(space: number | string): { value: number; unit: string } {
   if (matches === null) {
     throw new Error(`Invalid space: ${space}`)
   }
-  const unit = matches[2]
   return {
-    unit: typeof unit === 'undefined' ? '' : unit,
+    unit: matches[2],
     value: parseFloat(matches[1])
   }
 }
