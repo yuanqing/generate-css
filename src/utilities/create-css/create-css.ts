@@ -30,7 +30,10 @@ function createCssDeclarationBlock(
   theme: Theme,
   formatValue: (value: string) => null | string
 ): null | CssDeclarationBlock {
-  const { breakpoint, pseudoClass, selector } = parseClassName(className, theme)
+  const { breakpoint, pseudoClass, selector } = parseClassName(
+    className,
+    typeof theme.breakpoint === 'undefined' ? [] : Object.keys(theme.breakpoint)
+  )
   const declarations = mapSelectorToDeclaration(selector)
   if (declarations !== null) {
     return {
