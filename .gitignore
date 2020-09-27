@@ -1,6 +1,8 @@
 .DS_Store
 *.log
 *.tsbuildinfo
+.nyc_output/
+coverage/
 lib/
 node_modules/
 sandbox/
