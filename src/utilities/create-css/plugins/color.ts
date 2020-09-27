@@ -8,6 +8,9 @@ export const color: Plugin = {
     matches: RegExpMatchArray
     theme: Theme
   }): { [property: string]: string } {
+    if (typeof theme.color === 'undefined') {
+      throw new Error('`theme.color` not defined in configuration')
+    }
     const color = theme.color[matches[1]]
     if (typeof color === 'undefined') {
       throw new Error(`Invalid color: ${matches[1]}`)

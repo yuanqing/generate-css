@@ -5,18 +5,22 @@ export function createBaseFontSizeCss(config: Config): string {
     return ''
   }
   const result: Array<string> = []
-  for (const key of Object.keys(config.theme.baseFontSize)) {
-    const fontSize = config.theme.baseFontSize[key]
-    if (key === 'default') {
+  for (const breakpoint of Object.keys(config.theme.baseFontSize)) {
+    const fontSize = config.theme.baseFontSize[breakpoint]
+    if (breakpoint === 'default') {
       result.push(createHtmlFontSizeCss(fontSize))
       continue
     }
-    const breakpoint = config.theme.breakpoint[key]
-    if (typeof breakpoint === 'undefined') {
-      throw new Error(`Breakpoint ${key} not defined in configuration`)
+    if (
+      typeof config.theme.breakpoint === 'undefined' ||
+      typeof config.theme.breakpoint[breakpoint] === 'undefined'
+    ) {
+      throw new Error(`Breakpoint ${breakpoint} not defined in configuration`)
     }
     result.push(
-      `@media (min-width: ${breakpoint}) { ${createHtmlFontSizeCss(fontSize)} }`
+      `@media (min-width: ${
+        config.theme.breakpoint[breakpoint]
+      }) { ${createHtmlFontSizeCss(fontSize)} }`
     )
   }
   return result.join('')

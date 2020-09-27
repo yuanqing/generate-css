@@ -3,12 +3,15 @@ const fractionRegex = /^(\d+)\/(\d+)$/
 const integerRegex = /^\d+$/
 
 export function formatValueFactory(
-  breakpoints: { [name: string]: string },
-  space: number | string
+  breakpoints?: { [key: string]: string },
+  space?: number | string
 ): (value: string) => null | string {
   const parsedSpace = parseSpace(space)
   return function (value: string): null | string {
-    if (typeof breakpoints[value] !== 'undefined') {
+    if (
+      typeof breakpoints !== 'undefined' &&
+      typeof breakpoints[value] !== 'undefined'
+    ) {
       return breakpoints[value]
     }
     switch (value) {
@@ -38,6 +41,9 @@ export function formatValueFactory(
       if (matches[0] === '0') {
         return '0'
       }
+      if (parsedSpace === null) {
+        throw new Error('`theme.space` not defined in configuration')
+      }
       return `${parseFloat(matches[0]) * parsedSpace.value}${parsedSpace.unit}`
     }
     return null
@@ -46,7 +52,12 @@ export function formatValueFactory(
 
 const valueAndUnitRegex = /((?:\d*\.)?\d+) ?([A-Za-z]+)/
 
-function parseSpace(space: number | string): { value: number; unit: string } {
+function parseSpace(
+  space?: number | string
+): null | { value: number; unit: string } {
+  if (typeof space === 'undefined') {
+    return null
+  }
   if (typeof space === 'number') {
     return {
       unit: 'px',

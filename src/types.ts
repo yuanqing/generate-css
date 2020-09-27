@@ -9,15 +9,15 @@ export type Config = {
 }
 
 export type Theme = {
-  baseFontSize: ThemeItem
-  breakpoint: ThemeItem
-  color: ThemeItem
-  fontFamily: ThemeItem
-  fontSize: ThemeItem
-  fontWeight: ThemeItem
-  letterSpacing: ThemeItem
-  lineHeight: ThemeItem
-  space: number | string
+  baseFontSize?: ThemeItem
+  breakpoint?: ThemeItem
+  color?: ThemeItem
+  fontFamily?: ThemeItem
+  fontSize?: ThemeItem
+  fontWeight?: ThemeItem
+  letterSpacing?: ThemeItem
+  lineHeight?: ThemeItem
+  space?: number | string
 }
 
 type ThemeItem = {

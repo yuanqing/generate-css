@@ -12,7 +12,7 @@ export const widthAndHeight: Plugin = {
     const suffix = matches[2] === 'w' ? 'width' : 'height'
     const value = formatValue(matches[3])
     if (value === null) {
-      throw new Error(`Invalid value: ${matches[3]}`)
+      throw new Error(`Invalid ${prefix} value: ${matches[3]}`)
     }
     return {
       [`${prefix}${suffix}`]: value

@@ -1,6 +1,6 @@
 import { Plugin, Theme } from '../../../types'
 
-const digitsRegex = /\d+/
+const digitsRegex = /^\d+$/
 
 export const letterSpacing: Plugin = {
   createDeclarations: function ({
@@ -10,18 +10,21 @@ export const letterSpacing: Plugin = {
     matches: RegExpMatchArray
     theme: Theme
   }): { [property: string]: string } {
-    const letterSpacing = theme.letterSpacing[matches[1]]
-    if (typeof letterSpacing !== 'undefined') {
-      return {
-        'letter-spacing': `${letterSpacing}`
-      }
-    }
     if (digitsRegex.test(matches[1]) === true) {
       return {
         'letter-spacing': `${matches[1]}px`
       }
     }
-    throw new Error(`Invalid letter-spacing: ${matches[1]}`)
+    if (typeof theme.letterSpacing === 'undefined') {
+      throw new Error('`theme.letterSpacing` not defined in configuration')
+    }
+    const letterSpacing = theme.letterSpacing[matches[1]]
+    if (typeof letterSpacing === 'undefined') {
+      throw new Error(`Invalid letter-spacing: ${matches[1]}`)
+    }
+    return {
+      'letter-spacing': `${letterSpacing}`
+    }
   },
   regex: /^(?:kerning|letter-spacing|tracking)-(.+)$/
 }

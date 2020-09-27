@@ -11,7 +11,7 @@ export const marginAndPadding: Plugin = {
     const prefix = matches[1] === 'm' ? 'margin' : 'padding'
     const value = formatValue(matches[3])
     if (value === null) {
-      throw new Error(`Invalid value: ${matches[3]}`)
+      throw new Error(`Invalid ${prefix} value: ${matches[3]}`)
     }
     switch (matches[2]) {
       case 'x': {

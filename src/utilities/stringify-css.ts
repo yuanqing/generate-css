@@ -7,7 +7,10 @@ export function stringifyCss(
   const result = []
   for (const { breakpoint, cssDeclarationBlocks } of css) {
     if (breakpoint !== null) {
-      if (typeof config.theme.breakpoint[breakpoint] === 'undefined') {
+      if (
+        typeof config.theme.breakpoint === 'undefined' ||
+        typeof config.theme.breakpoint[breakpoint] === 'undefined'
+      ) {
         throw new Error(
           `Breakpoint not defined in configuration file: ${breakpoint}`
         )

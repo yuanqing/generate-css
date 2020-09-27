@@ -14,7 +14,7 @@ export async function readConfigAsync(
 ): Promise<Config> {
   const config = JSON.parse(await fs.readFile(configPath, 'utf8'))
   return {
-    ...config,
-    ...options
+    ...options,
+    ...config
   }
 }

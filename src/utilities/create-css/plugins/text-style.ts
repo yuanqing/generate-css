@@ -9,21 +9,29 @@ export const textStyle: Plugin = {
     theme: Theme
   }): { [property: string]: string } {
     const result: { [property: string]: string } = {}
-    const fontSize = theme.fontSize[matches[1]]
-    if (typeof fontSize !== 'undefined') {
-      result['font-size'] = fontSize
+    if (typeof theme.fontSize !== 'undefined') {
+      const fontSize = theme.fontSize[matches[1]]
+      if (typeof fontSize !== 'undefined') {
+        result['font-size'] = fontSize
+      }
     }
-    const fontWeight = theme.fontWeight[matches[1]]
-    if (typeof fontWeight !== 'undefined') {
-      result['font-weight'] = fontWeight
+    if (typeof theme.fontWeight !== 'undefined') {
+      const fontWeight = theme.fontWeight[matches[1]]
+      if (typeof fontWeight !== 'undefined') {
+        result['font-weight'] = fontWeight
+      }
     }
-    const letterSpacing = theme.letterSpacing[matches[1]]
-    if (typeof letterSpacing !== 'undefined') {
-      result['letter-spacing'] = letterSpacing
+    if (typeof theme.letterSpacing !== 'undefined') {
+      const letterSpacing = theme.letterSpacing[matches[1]]
+      if (typeof letterSpacing !== 'undefined') {
+        result['letter-spacing'] = letterSpacing
+      }
     }
-    const lineHeight = theme.lineHeight[matches[1]]
-    if (typeof lineHeight !== 'undefined') {
-      result['line-height'] = lineHeight
+    if (typeof theme.lineHeight !== 'undefined') {
+      const lineHeight = theme.lineHeight[matches[1]]
+      if (typeof lineHeight !== 'undefined') {
+        result['line-height'] = lineHeight
+      }
     }
     if (Object.keys(result).length === 0) {
       throw new Error('Invalid text style')
