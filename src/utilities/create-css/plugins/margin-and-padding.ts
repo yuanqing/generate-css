@@ -11,47 +11,47 @@ export const marginAndPadding: Plugin = {
       themeKeys: Array<ThemeKeys>
     ) => null | string
   }): { [property: string]: string } {
-    const prefix = matches[1] === 'm' ? 'margin' : 'padding'
-    const value = computeNumericValue(matches[3], [prefix, 'breakpoint'])
+    const property = matches[1] === 'm' ? 'margin' : 'padding'
+    const value = computeNumericValue(matches[3], [property, 'breakpoint'])
     if (value === null) {
-      throw new Error(`Invalid ${prefix} value: ${matches[3]}`)
+      throw new Error(`Invalid ${property} value: ${matches[3]}`)
     }
     switch (matches[2]) {
       case 'x': {
         return {
-          [`${prefix}-right`]: value,
-          [`${prefix}-left`]: value
+          [`${property}-right`]: value,
+          [`${property}-left`]: value
         }
       }
       case 'y': {
         return {
-          [`${prefix}-top`]: value,
-          [`${prefix}-bottom`]: value
+          [`${property}-top`]: value,
+          [`${property}-bottom`]: value
         }
       }
       case 't': {
         return {
-          [`${prefix}-top`]: value
+          [`${property}-top`]: value
         }
       }
       case 'r': {
         return {
-          [`${prefix}-right`]: value
+          [`${property}-right`]: value
         }
       }
       case 'b': {
         return {
-          [`${prefix}-bottom`]: value
+          [`${property}-bottom`]: value
         }
       }
       case 'l': {
         return {
-          [`${prefix}-left`]: value
+          [`${property}-left`]: value
         }
       }
     }
     return {
-      padding: value
+      [property]: value
     }
   },
   regex: /^([mp])([xytrbl])?(?:-(.+))?$/

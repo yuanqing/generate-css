@@ -18,8 +18,8 @@ export const font: Plugin = {
         throw new Error('`theme.fontFamily` not defined in configuration')
       }
       const fontFamily = theme.fontFamily.default
-      if (fontFamily === 'undefined') {
-        throw new Error(`Default font family not defined in configuration`)
+      if (typeof fontFamily === 'undefined') {
+        throw new Error('`default` font family not defined in configuration')
       }
       return {
         'font-family': `${fontFamily}`

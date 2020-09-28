@@ -1,6 +1,6 @@
 import { Plugin, Theme } from '../../../types'
 
-export const textStyle: Plugin = {
+export const text: Plugin = {
   createDeclarations: function ({
     matches,
     theme

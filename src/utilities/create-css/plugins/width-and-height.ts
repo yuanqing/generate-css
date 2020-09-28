@@ -12,13 +12,13 @@ export const widthAndHeight: Plugin = {
     ) => null | string
   }): { [property: string]: string } {
     const prefix = typeof matches[1] === 'undefined' ? '' : `${matches[1]}-`
-    const suffix = matches[2] === 'w' ? 'width' : 'height'
-    const value = computeNumericValue(matches[3], [suffix, 'breakpoint'])
+    const property = matches[2] === 'w' ? 'width' : 'height'
+    const value = computeNumericValue(matches[3], [property])
     if (value === null) {
       throw new Error(`Invalid ${prefix} value: ${matches[3]}`)
     }
     return {
-      [`${prefix}${suffix}`]: value
+      [`${prefix}${property}`]: value
     }
   },
   regex: /^(max|min)?([wh])(?:-(.+))?$/
