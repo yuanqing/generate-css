@@ -68,5 +68,5 @@ export const borderRadius: Plugin = {
       'border-radius': borderRadius
     }
   },
-  regex: /^rounded(?:-([trbl]|[tb][lr]))?-(.+)?$/
+  regex: /^rounded(?:-([trbl]|[tb][lr]))?(?:-(.+))?$/
 }

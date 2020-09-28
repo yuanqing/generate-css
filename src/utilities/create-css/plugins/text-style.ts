@@ -38,5 +38,5 @@ export const textStyle: Plugin = {
     }
     return result
   },
-  regex: /^text-(.+)$/
+  regex: /^text(?:-(.+))?$/
 }

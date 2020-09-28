@@ -6,9 +6,12 @@ const integerRegex = /^\d+$/
 
 export function computeNumericValueFactory(
   theme: Theme
-): (value: string, themeKeys: Array<ThemeKeys>) => null | string {
+): (value: undefined | string, themeKeys: Array<ThemeKeys>) => null | string {
   const parsedSpace = parseSpace(theme.space)
-  return function (value: string, themeKeys: Array<ThemeKeys>): null | string {
+  return function (
+    value = 'default',
+    themeKeys: Array<ThemeKeys>
+  ): null | string {
     for (const themeKey of themeKeys) {
       if (
         typeof themeKey !== 'undefined' &&

@@ -19,5 +19,5 @@ export const letterSpacing: Plugin = {
       'letter-spacing': `${letterSpacing}`
     }
   },
-  regex: /^(?:kerning|letter-spacing|tracking)-(.+)$/
+  regex: /^(?:kerning|letter-spacing|tracking)(?:-(.+))?$/
 }

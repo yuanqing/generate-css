@@ -22,5 +22,5 @@ export const backgroundColor: Plugin = {
       'background-color': `${backgroundColor}`
     }
   },
-  regex: /^bg-(.+)$/
+  regex: /^bg(?:-(.+))?$/
 }

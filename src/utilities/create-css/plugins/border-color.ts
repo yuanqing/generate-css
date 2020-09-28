@@ -19,5 +19,5 @@ export const borderColor: Plugin = {
       'border-color': `${borderColor}`
     }
   },
-  regex: /^border-(.+)$/
+  regex: /^border(?:-(.+))?$/
 }

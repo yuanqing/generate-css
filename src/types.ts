@@ -59,11 +59,11 @@ export type Plugin = {
   regex: RegExp
   createDeclarations: (options: {
     computeColorValue: (
-      value: string,
+      value: undefined | string,
       themeKeys: Array<ThemeKeys>
     ) => null | string
     computeNumericValue: (
-      value: string,
+      value: undefined | string,
       themeKeys: Array<ThemeKeys>
     ) => null | string
     matches: RegExpMatchArray

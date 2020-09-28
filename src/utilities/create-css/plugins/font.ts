@@ -49,5 +49,5 @@ export const font: Plugin = {
       'font-size': `${fontSize}`
     }
   },
-  regex: /^font-(.+)$/
+  regex: /^font(?:-(.+))?$/
 }

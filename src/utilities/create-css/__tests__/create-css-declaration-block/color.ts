@@ -3,7 +3,10 @@ import { test } from 'tap'
 import { createCssDeclarationBlock } from '../../create-css-declaration-block'
 
 test('color not defined in `theme`', function (t) {
-  t.plan(2)
+  t.plan(3)
+  t.throw(function () {
+    createCssDeclarationBlock('color', {})
+  })
   t.throw(function () {
     createCssDeclarationBlock('color-black', {})
   })
@@ -14,27 +17,27 @@ test('color not defined in `theme`', function (t) {
   })
 })
 
-test('valid color defined in `theme.color`', function (t) {
+test('default color', function (t) {
   t.plan(1)
   t.deepEqual(
-    createCssDeclarationBlock('color-black', {
+    createCssDeclarationBlock('color', {
       color: {
-        black: '#000000'
+        default: '#ffffff'
       }
     }),
     {
       breakpoint: null,
-      className: 'color-black',
+      className: 'color',
       declarations: {
-        color: '#000000'
+        color: '#ffffff'
       },
       pseudoClass: null,
-      selector: 'color-black'
+      selector: 'color'
     }
   )
 })
 
-test('valid color defined in `theme.color`', function (t) {
+test('custom color defined in `theme.color`', function (t) {
   t.plan(1)
   t.deepEqual(
     createCssDeclarationBlock('color-black', {

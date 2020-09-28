@@ -19,5 +19,5 @@ export const lineHeight: Plugin = {
       'line-height': `${lineHeight}`
     }
   },
-  regex: /^(?:leading|line-height)-(.+)$/
+  regex: /^(?:leading|line-height)(?:-(.+))?$/
 }

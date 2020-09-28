@@ -54,5 +54,5 @@ export const marginAndPadding: Plugin = {
       padding: value
     }
   },
-  regex: /^([mp])([xytrbl])?-(.+)$/
+  regex: /^([mp])([xytrbl])?(?:-(.+))?$/
 }

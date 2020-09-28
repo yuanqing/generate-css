@@ -19,5 +19,5 @@ export const color: Plugin = {
       color: `${color}`
     }
   },
-  regex: /^color-(.+)$/
+  regex: /^color(?:-(.+))?$/
 }

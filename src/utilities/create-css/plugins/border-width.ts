@@ -53,5 +53,5 @@ export const borderWidth: Plugin = {
       'border-width': borderWidth
     }
   },
-  regex: /^b([xytrbl])?-(.+)$/
+  regex: /^b([xytrbl])?(?:-(.+))?$/
 }
