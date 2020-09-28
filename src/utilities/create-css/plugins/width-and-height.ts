@@ -21,5 +21,5 @@ export const widthAndHeight: Plugin = {
       [`${prefix}${suffix}`]: value
     }
   },
-  regex: /^(max)?([wh])-(.+)$/
+  regex: /^(max|min)?([wh])-(.+)$/
 }
