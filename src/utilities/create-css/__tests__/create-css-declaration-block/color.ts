@@ -17,7 +17,7 @@ test('color not defined in `theme`', function (t) {
   })
 })
 
-test('default color', function (t) {
+test('default color defined in `theme.color`', function (t) {
   t.plan(1)
   t.deepEqual(
     createCssDeclarationBlock('color', {

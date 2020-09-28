@@ -22,11 +22,31 @@ test('border color not defined in `theme`', function (t) {
   })
 })
 
-test('default border color', function (t) {
+test('default border color defined in `theme.borderColor`', function (t) {
   t.plan(1)
   t.deepEqual(
     createCssDeclarationBlock('border', {
       borderColor: {
+        default: '#ffffff'
+      }
+    }),
+    {
+      breakpoint: null,
+      className: 'border',
+      declarations: {
+        'border-color': '#ffffff'
+      },
+      pseudoClass: null,
+      selector: 'border'
+    }
+  )
+})
+
+test('default border color defined in `theme.color`', function (t) {
+  t.plan(1)
+  t.deepEqual(
+    createCssDeclarationBlock('border', {
+      color: {
         default: '#ffffff'
       }
     }),

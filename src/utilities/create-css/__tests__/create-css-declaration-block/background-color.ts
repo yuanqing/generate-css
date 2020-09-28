@@ -22,11 +22,31 @@ test('background color not defined in `theme`', function (t) {
   })
 })
 
-test('default background color', function (t) {
+test('default background color defined in `theme.backgroundColor`', function (t) {
   t.plan(1)
   t.deepEqual(
     createCssDeclarationBlock('bg', {
       backgroundColor: {
+        default: '#ffffff'
+      }
+    }),
+    {
+      breakpoint: null,
+      className: 'bg',
+      declarations: {
+        'background-color': '#ffffff'
+      },
+      pseudoClass: null,
+      selector: 'bg'
+    }
+  )
+})
+
+test('default background color defined in `theme.color`', function (t) {
+  t.plan(1)
+  t.deepEqual(
+    createCssDeclarationBlock('bg', {
+      color: {
         default: '#ffffff'
       }
     }),
