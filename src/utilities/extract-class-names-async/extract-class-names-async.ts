@@ -1,28 +1,22 @@
 import * as fs from 'fs-extra'
 import * as globby from 'globby'
 
+import { extractClassNamesFromHtml } from './extract-class-names-from-html'
+import { extractClassNamesFromJs } from './extract-class-names-from-js'
+
+const jsFileRegex = /.[jt]sx?$/
+
 export async function extractClassNamesAsync(
   pattern: string
 ): Promise<Array<string>> {
-  const paths = await globby(pattern)
+  const files = await globby(pattern)
   const result: { [key: string]: boolean } = {}
-  for (const path of paths) {
-    const string = await fs.readFile(path, 'utf8')
-    const classNames = extractClassNamesFromHtml(string)
-    for (const className of classNames) {
-      result[className] = true
-    }
-  }
-  return Object.keys(result).sort()
-}
-
-const classHtmlRegex = /class=(['"])((?:(?!\1).)+)\1/g // https://stackoverflow.com/a/8057827
-
-function extractClassNamesFromHtml(html: string): Array<string> {
-  const iterator = html.matchAll(classHtmlRegex)
-  const result: { [key: string]: boolean } = {}
-  for (const matches of iterator) {
-    const classNames = matches[2].split(' ')
+  for (const file of files) {
+    const string = await fs.readFile(file, 'utf8')
+    const classNames =
+      jsFileRegex.test(file) === true
+        ? extractClassNamesFromJs(string)
+        : extractClassNamesFromHtml(string)
     for (const className of classNames) {
       result[className] = true
     }
