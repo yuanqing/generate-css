@@ -23,6 +23,10 @@ export type Theme = {
   letterSpacing?: ThemeItem
   lineHeight?: ThemeItem
   margin?: ThemeItem
+  maxHeight?: ThemeItem
+  minHeight?: ThemeItem
+  maxWidth?: ThemeItem
+  minWidth?: ThemeItem
   padding?: ThemeItem
   space?: string
   width?: ThemeItem

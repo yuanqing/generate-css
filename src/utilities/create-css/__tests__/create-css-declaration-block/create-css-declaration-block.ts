@@ -12,6 +12,11 @@ test('invalid class name', function (t) {
   })
 })
 
+test('unrecognized class name', function (t) {
+  t.plan(1)
+  t.equal(createCssDeclarationBlock('foo', {}), null)
+})
+
 test('plain selector', function (t) {
   t.plan(1)
   t.deepEqual(createCssDeclarationBlock('block', {}), {
