@@ -11,11 +11,13 @@ export function createBaseFontSizeCss(config: Config): string {
       result.push(createHtmlFontSizeCss(fontSize))
       continue
     }
-    if (
-      typeof config.theme.breakpoint === 'undefined' ||
-      typeof config.theme.breakpoint[breakpoint] === 'undefined'
-    ) {
-      throw new Error(`Breakpoint ${breakpoint} not defined in configuration`)
+    if (typeof config.theme.breakpoint === 'undefined') {
+      throw new Error('`theme.breakpoint` not defined in configuration')
+    }
+    if (typeof config.theme.breakpoint[breakpoint] === 'undefined') {
+      throw new Error(
+        `Breakpoint not defined in \`theme.breakpoint\`: ${breakpoint}`
+      )
     }
     result.push(
       `@media (min-width: ${

@@ -14,7 +14,7 @@ export const marginAndPadding: Plugin = {
     const property = matches[1] === 'm' ? 'margin' : 'padding'
     const value = computeNumericValue(matches[3], [property, 'breakpoint'])
     if (value === null) {
-      throw new Error(`Invalid ${property} value: ${matches[3]}`)
+      throw new Error(`Invalid ${property}: ${matches[3]}`)
     }
     switch (matches[2]) {
       case 'x': {

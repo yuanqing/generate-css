@@ -6,9 +6,6 @@ export function parseClassName(
   className: string,
   breakpoints: Array<string>
 ): ParsedClassName {
-  if (className === '') {
-    throw new Error('Class name is an empty string')
-  }
   const matches = className.match(classRegex)
   if (matches === null) {
     throw new Error(`Invalid class name: ${className}`)

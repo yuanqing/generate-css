@@ -19,11 +19,12 @@ export const widthAndHeight: Plugin = {
     const value = computeNumericValue(matches[3], [
       resolveProperty(prefix, suffix)
     ])
+    const property = prefix === '' ? suffix : `${prefix}-${suffix}`
     if (value === null) {
-      throw new Error(`Invalid ${prefix} value: ${matches[3]}`)
+      throw new Error(`Invalid ${property}: ${matches[3]}`)
     }
     return {
-      [prefix === '' ? suffix : `${prefix}-${suffix}`]: value
+      [property]: value
     }
   },
   regex: /^(max|min)?([wh])(?:-(.+))?$/

@@ -53,13 +53,13 @@ async function readResetCssFilesAsync(): Promise<string> {
 }
 
 async function readFilesAsync(pattern: string): Promise<string> {
-  const paths = await globby(pattern)
-  if (paths.length === 0) {
+  const files = await globby(pattern)
+  if (files.length === 0) {
     throw new Error(`No files matched by pattern: ${pattern}`)
   }
   const result = []
-  for (const path of paths) {
-    result.push(await fs.readFile(path, 'utf8'))
+  for (const file of files) {
+    result.push(await fs.readFile(file, 'utf8'))
   }
   return result.join('')
 }
