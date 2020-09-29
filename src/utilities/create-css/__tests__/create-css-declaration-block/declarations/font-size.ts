@@ -1,6 +1,6 @@
 import { test } from 'tap'
 
-import { createCssDeclarationBlock } from '../../create-css-declaration-block'
+import { createCssDeclarationBlock } from '../../../create-css-declaration-block'
 
 test('font size not defined in `theme`', function (t) {
   t.plan(2)

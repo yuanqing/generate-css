@@ -1,6 +1,6 @@
 import { test } from 'tap'
 
-import { createCssDeclarationBlock } from '../../create-css-declaration-block'
+import { createCssDeclarationBlock } from '../../../create-css-declaration-block'
 
 test('border radius not defined in `theme`', function (t) {
   t.plan(2)

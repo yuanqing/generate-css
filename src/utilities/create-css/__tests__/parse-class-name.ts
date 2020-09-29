@@ -2,15 +2,11 @@ import { test } from 'tap'
 
 import { parseClassName } from '../parse-class-name'
 
-test('empty string', function (t) {
-  t.plan(1)
+test('invalid class name', function (t) {
+  t.plan(2)
   t.throw(function () {
     parseClassName('', [])
   })
-})
-
-test('invalid class name', function (t) {
-  t.plan(1)
   t.throw(function () {
     parseClassName(':', [])
   })
@@ -25,14 +21,14 @@ test('plain selector', function (t) {
   })
 })
 
-test('invalid media query', function (t) {
+test('breakpoint not defined', function (t) {
   t.plan(1)
   t.throw(function () {
     parseClassName('sm@block', [])
   })
 })
 
-test('valid media query', function (t) {
+test('breakpoint defined', function (t) {
   t.plan(1)
   t.deepEqual(parseClassName('sm@block', ['sm']), {
     breakpoint: 'sm',
@@ -65,7 +61,7 @@ test('group pseudo-class', function (t) {
   })
 })
 
-test('valid media query and pseudo-class', function (t) {
+test('valid breakpoint and pseudo-class', function (t) {
   t.plan(1)
   t.deepEqual(parseClassName('sm@block:hover', ['sm']), {
     breakpoint: 'sm',
@@ -77,7 +73,7 @@ test('valid media query and pseudo-class', function (t) {
   })
 })
 
-test('valid media query and group pseudo-class', function (t) {
+test('valid breakpoint and group pseudo-class', function (t) {
   t.plan(1)
   t.deepEqual(parseClassName('sm@block:group-hover', ['sm']), {
     breakpoint: 'sm',
