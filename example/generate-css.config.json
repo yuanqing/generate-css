@@ -1,0 +1,20 @@
+{
+  "reset": true,
+  "theme": {
+    "baseFontSize": {
+      "default": "16px"
+    },
+    "color": {
+      "black": "#000000",
+      "orange": "#ff5533",
+      "white": "#ffffff"
+    },
+    "fontFamily": {
+      "default": "Helvetica, Arial, sans-serif"
+    },
+    "fontWeight": {
+      "bold": "bolder"
+    },
+    "space": "0.5rem"
+  }
+}

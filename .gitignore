@@ -3,6 +3,7 @@
 *.tsbuildinfo
 .nyc_output/
 coverage/
+example/style.css
 lib/
 node_modules/
 sandbox/
