@@ -29,7 +29,7 @@ export async function generateCssAsync(config: Config): Promise<void> {
       : await readFilesAsync(config.appendCssFilesPattern)
   const css = formatCss(
     [prependCss, resetCss, baseFontSizeCss, generatedCss, appendCss].join(''),
-    config.prettyPrint
+    config.minify
   )
   if (config.outputPath === null) {
     console.log(css) // eslint-disable-line no-console
@@ -64,11 +64,11 @@ async function readFilesAsync(pattern: string): Promise<string> {
   return result.join('')
 }
 
-function formatCss(css: string, prettyPrint: boolean) {
+function formatCss(css: string, minify: boolean) {
   const result = csso.minify(css, { comments: false, forceMediaMerge: true })
     .css
-  if (prettyPrint === true) {
-    return prettier.format(result, { parser: 'css' })
+  if (minify === true) {
+    return result
   }
-  return result
+  return prettier.format(result, { parser: 'css' })
 }

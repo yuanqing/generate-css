@@ -1,20 +1,13 @@
 import * as fs from 'fs-extra'
 
-import { Config } from '../types'
+import { CliOptions, Config } from '../types'
 
-export async function readConfigAsync(
-  configPath: string,
-  options: {
-    appendCssFilesPattern: null | string
-    outputPath: null | string
-    prependCssFilesPattern: null | string
-    prettyPrint: boolean
-    sourceFilesPattern: string
-  }
-): Promise<Config> {
-  const config = JSON.parse(await fs.readFile(configPath, 'utf8'))
+export async function readConfigAsync(cliOptions: CliOptions): Promise<Config> {
+  const config = JSON.parse(
+    await fs.readFile(cliOptions.configFilePath, 'utf8')
+  )
   return {
-    ...options,
+    ...cliOptions,
     ...config
   }
 }

@@ -1,9 +1,11 @@
 import { generateCssAsync } from './generate-css'
-import { Config } from './types'
+import { CliOptions } from './types'
 import { log } from './utilities/log'
+import { readConfigAsync } from './utilities/read-config-async'
 
-export async function build(config: Config): Promise<void> {
+export async function build(cliOptions: CliOptions): Promise<void> {
   try {
+    const config = await readConfigAsync(cliOptions)
     if (config.outputPath !== null) {
       log.info('Generating CSS...')
     }

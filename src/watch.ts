@@ -1,13 +1,16 @@
 import * as chokidar from 'chokidar'
 
 import { build } from './build'
-import { Config } from './types'
+import { CliOptions } from './types'
 import { log } from './utilities/log'
 
-export function watch(config: Config): void {
-  const watcher = chokidar.watch(config.sourceFilesPattern)
+export function watch(cliOptions: CliOptions): void {
+  const watcher = chokidar.watch([
+    cliOptions.sourceFilesPattern,
+    cliOptions.configFilePath
+  ])
   async function onChangeAsync() {
-    await build(config)
+    await build(cliOptions)
     log.info('Watching...')
   }
   watcher.on('ready', onChangeAsync)

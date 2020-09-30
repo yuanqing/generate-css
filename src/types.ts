@@ -1,8 +1,17 @@
-export type Config = {
+export interface CliOptions {
   appendCssFilesPattern: null | string
+  configFilePath: string
+  minify: boolean
   outputPath: null | string
   prependCssFilesPattern: null | string
-  prettyPrint: boolean
+  sourceFilesPattern: string
+}
+
+export type Config = {
+  appendCssFilesPattern: null | string
+  minify: boolean
+  outputPath: null | string
+  prependCssFilesPattern: null | string
   reset: boolean
   sourceFilesPattern: string
   theme: Theme
