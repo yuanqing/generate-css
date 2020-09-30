@@ -45,10 +45,10 @@ Do:
 $ npx generate-css example.html --output style.css
 ```
 
-This will result in the following `style.css` file (with the opening reset declarations omitted):
+This will result in the following `style.css` file (with the opening reset rules omitted):
 
 ```scss
-// ...reset declarations...
+// ...reset rules...
 
 .bg-black\:hover:hover {
   background-color: #000;
