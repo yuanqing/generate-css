@@ -5,10 +5,14 @@ import { CliOptions } from './types'
 import { log } from './utilities/log'
 
 export function watch(cliOptions: CliOptions): void {
-  const watcher = chokidar.watch([
-    cliOptions.sourceFilesPattern,
-    cliOptions.configFilePath
-  ])
+  const files = [cliOptions.configFilePath, cliOptions.sourceFilesPattern]
+  if (cliOptions.prependCssFilesPattern !== null) {
+    files.push(cliOptions.prependCssFilesPattern)
+  }
+  if (cliOptions.appendCssFilesPattern !== null) {
+    files.push(cliOptions.appendCssFilesPattern)
+  }
+  const watcher = chokidar.watch(files)
   async function onChangeAsync() {
     await build(cliOptions)
     log.info('Watching...')
