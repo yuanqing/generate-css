@@ -60,3 +60,16 @@ test('pixel min-width', function (t) {
     selector: 'minw-320px'
   })
 })
+
+test('screen min-width', function (t) {
+  t.plan(1)
+  t.deepEqual(createCssDeclarationBlock('minw-screen', {}), {
+    breakpoint: null,
+    className: 'minw-screen',
+    declarations: {
+      'min-width': '100vw'
+    },
+    pseudoClass: null,
+    selector: 'minw-screen'
+  })
+})

@@ -60,3 +60,16 @@ test('pixel min-height', function (t) {
     selector: 'minh-320px'
   })
 })
+
+test('screen min-height', function (t) {
+  t.plan(1)
+  t.deepEqual(createCssDeclarationBlock('minh-screen', {}), {
+    breakpoint: null,
+    className: 'minh-screen',
+    declarations: {
+      'min-height': '100vh'
+    },
+    pseudoClass: null,
+    selector: 'minh-screen'
+  })
+})

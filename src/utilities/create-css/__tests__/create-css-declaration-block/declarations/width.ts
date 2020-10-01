@@ -57,3 +57,16 @@ test('pixel width', function (t) {
     selector: 'w-2px'
   })
 })
+
+test('screen width', function (t) {
+  t.plan(1)
+  t.deepEqual(createCssDeclarationBlock('w-screen', {}), {
+    breakpoint: null,
+    className: 'w-screen',
+    declarations: {
+      width: '100vw'
+    },
+    pseudoClass: null,
+    selector: 'w-screen'
+  })
+})

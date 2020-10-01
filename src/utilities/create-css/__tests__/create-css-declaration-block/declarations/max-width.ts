@@ -60,3 +60,16 @@ test('pixel max-width', function (t) {
     selector: 'maxw-320px'
   })
 })
+
+test('screen max-width', function (t) {
+  t.plan(1)
+  t.deepEqual(createCssDeclarationBlock('maxw-screen', {}), {
+    breakpoint: null,
+    className: 'maxw-screen',
+    declarations: {
+      'max-width': '100vw'
+    },
+    pseudoClass: null,
+    selector: 'maxw-screen'
+  })
+})

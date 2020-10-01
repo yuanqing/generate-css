@@ -57,3 +57,16 @@ test('pixel height', function (t) {
     selector: 'h-2px'
   })
 })
+
+test('screen height', function (t) {
+  t.plan(1)
+  t.deepEqual(createCssDeclarationBlock('h-screen', {}), {
+    breakpoint: null,
+    className: 'h-screen',
+    declarations: {
+      height: '100vh'
+    },
+    pseudoClass: null,
+    selector: 'h-screen'
+  })
+})

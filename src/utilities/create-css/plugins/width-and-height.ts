@@ -16,10 +16,15 @@ export const widthAndHeight: Plugin = {
       | 'min'
       | 'max'
     const suffix = matches[2] === 'w' ? 'width' : 'height'
+    const property = prefix === '' ? suffix : `${prefix}-${suffix}`
+    if (matches[3] === 'screen') {
+      return {
+        [property]: suffix === 'width' ? '100vw' : '100vh'
+      }
+    }
     const value = computeNumericValue(matches[3], [
       resolveProperty(prefix, suffix)
     ])
-    const property = prefix === '' ? suffix : `${prefix}-${suffix}`
     if (value === null) {
       throw new Error(`Invalid ${property}: ${matches[3]}`)
     }

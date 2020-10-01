@@ -60,3 +60,16 @@ test('pixel max-height', function (t) {
     selector: 'maxh-320px'
   })
 })
+
+test('screen max-height', function (t) {
+  t.plan(1)
+  t.deepEqual(createCssDeclarationBlock('maxh-screen', {}), {
+    breakpoint: null,
+    className: 'maxh-screen',
+    declarations: {
+      'max-height': '100vh'
+    },
+    pseudoClass: null,
+    selector: 'maxh-screen'
+  })
+})
