@@ -2,7 +2,7 @@
 
 > Dynamically generate functional CSS classes from HTML and JavaScript source files
 
-- Style your app via a class shorthand, with support for pseudo-classes and media-queries
+- Style your app via a class shorthand, with support for pseudo-classes and media queries
 - Zero unused CSS; functional CSS classes are only included in the generated CSS file if they are actually used
 
 ## Example
@@ -11,7 +11,7 @@ Given an `example.html` file:
 
 ```html
 <link href="style.css" rel="stylesheet">
-<button class="bg-orange color-white bg-black:hover font font-bold px-4 py-2 rounded-full">Button</button>
+<button class="bg-orange color-white font font-bold px-4 py-2 rounded-full hover:bg-black">Button</button>
 ```
 
 And the following `generate-css.config.json` file:
@@ -50,9 +50,6 @@ This will result in the following `style.css` file (with the opening reset rules
 ```scss
 // ...reset rules...
 
-.bg-black\:hover:hover {
-  background-color: #000;
-}
 .bg-orange {
   background-color: #f53;
 }
@@ -64,6 +61,9 @@ This will result in the following `style.css` file (with the opening reset rules
 }
 .font-bold {
   font-weight: bolder;
+}
+.hover\:bg-black:hover {
+  background-color: #000;
 }
 .px-4 {
   padding-right: 2rem;
@@ -100,7 +100,7 @@ $ npx generate-css --help
 
 ## Prior art
 
-- Naming conventions of the functional CSS classes is heavily inspired by [Tailwind](https://tailwindcss.com/) and [Tachyons](https://tachyons.io/)
+- The functional CSS class naming convention used in Generate CSS is heavily inspired by [Tailwind](https://tailwindcss.com/) and [Tachyons](https://tachyons.io/)
 
 ## License
 

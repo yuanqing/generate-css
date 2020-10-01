@@ -39,7 +39,7 @@ test('breakpoint defined', function (t) {
 
 test('pseudo-class', function (t) {
   t.plan(1)
-  t.deepEqual(parseClassName('block:hover', []), {
+  t.deepEqual(parseClassName('hover:block', []), {
     breakpoint: null,
     pseudoClass: {
       isGroup: false,
@@ -51,7 +51,7 @@ test('pseudo-class', function (t) {
 
 test('group pseudo-class', function (t) {
   t.plan(1)
-  t.deepEqual(parseClassName('block:group-hover', []), {
+  t.deepEqual(parseClassName('group-hover:block', []), {
     breakpoint: null,
     pseudoClass: {
       isGroup: true,
@@ -63,7 +63,7 @@ test('group pseudo-class', function (t) {
 
 test('valid breakpoint and pseudo-class', function (t) {
   t.plan(1)
-  t.deepEqual(parseClassName('sm@block:hover', ['sm']), {
+  t.deepEqual(parseClassName('sm@hover:block', ['sm']), {
     breakpoint: 'sm',
     pseudoClass: {
       isGroup: false,
@@ -75,7 +75,7 @@ test('valid breakpoint and pseudo-class', function (t) {
 
 test('valid breakpoint and group pseudo-class', function (t) {
   t.plan(1)
-  t.deepEqual(parseClassName('sm@block:group-hover', ['sm']), {
+  t.deepEqual(parseClassName('sm@group-hover:block', ['sm']), {
     breakpoint: 'sm',
     pseudoClass: {
       isGroup: true,

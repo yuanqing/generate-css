@@ -59,9 +59,9 @@ test('breakpoint defined', function (t) {
 
 test('pseudo-class', function (t) {
   t.plan(1)
-  t.deepEqual(createCssDeclarationBlock('block:hover', {}), {
+  t.deepEqual(createCssDeclarationBlock('hover:block', {}), {
     breakpoint: null,
-    className: 'block:hover',
+    className: 'hover:block',
     declarations: {
       display: 'block'
     },
@@ -72,9 +72,9 @@ test('pseudo-class', function (t) {
 
 test('group pseudo-class', function (t) {
   t.plan(1)
-  t.deepEqual(createCssDeclarationBlock('block:group-hover', {}), {
+  t.deepEqual(createCssDeclarationBlock('group-hover:block', {}), {
     breakpoint: null,
-    className: 'block:group-hover',
+    className: 'group-hover:block',
     declarations: {
       display: 'block'
     },
@@ -86,14 +86,14 @@ test('group pseudo-class', function (t) {
 test('valid breakpoint and pseudo-class', function (t) {
   t.plan(1)
   t.deepEqual(
-    createCssDeclarationBlock('sm@block:hover', {
+    createCssDeclarationBlock('sm@hover:block', {
       breakpoint: {
         sm: '320px'
       }
     }),
     {
       breakpoint: 'sm',
-      className: 'sm@block:hover',
+      className: 'sm@hover:block',
       declarations: {
         display: 'block'
       },
@@ -106,14 +106,14 @@ test('valid breakpoint and pseudo-class', function (t) {
 test('valid breakpoint and group pseudo-class', function (t) {
   t.plan(1)
   t.deepEqual(
-    createCssDeclarationBlock('sm@block:group-hover', {
+    createCssDeclarationBlock('sm@group-hover:block', {
       breakpoint: {
         sm: '320px'
       }
     }),
     {
       breakpoint: 'sm',
-      className: 'sm@block:group-hover',
+      className: 'sm@group-hover:block',
       declarations: {
         display: 'block'
       },

@@ -14,11 +14,17 @@ export function parseClassName(
   if (breakpoint !== null && breakpoints.indexOf(breakpoint) === -1) {
     throw new Error(`Invalid breakpoint: ${breakpoint}`)
   }
+  if (typeof matches[3] === 'undefined') {
+    return {
+      breakpoint,
+      pseudoClass: null,
+      selector: matches[2]
+    }
+  }
   return {
     breakpoint,
-    pseudoClass:
-      typeof matches[3] === 'undefined' ? null : parsePseudoClass(matches[3]),
-    selector: matches[2]
+    pseudoClass: parsePseudoClass(matches[2]),
+    selector: matches[3]
   }
 }
 
