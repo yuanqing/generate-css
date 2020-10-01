@@ -7,13 +7,8 @@ export interface CliOptions {
   sourceFilesPattern: string
 }
 
-export type Config = {
-  appendCssFilesPattern: null | string
-  minify: boolean
-  outputPath: null | string
-  prependCssFilesPattern: null | string
+export interface Config extends CliOptions {
   reset: boolean
-  sourceFilesPattern: string
   theme: Theme
 }
 
