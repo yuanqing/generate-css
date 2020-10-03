@@ -11,7 +11,7 @@ Given an `example.html` file:
 
 ```html
 <link href="style.css" rel="stylesheet">
-<button class="bg-orange color-white font font-bold px-4 py-2 rounded-full hover:bg-black">Button</button>
+<button class="bg-blue color-white font font-bold px-4 py-2 rounded-full hover:bg-black">Button</button>
 ```
 
 And the following `generate-css.config.json` file:
@@ -24,9 +24,9 @@ And the following `generate-css.config.json` file:
       "default": "16px"
     },
     "color": {
-      "black": "#000000",
-      "orange": "#ff5533",
-      "white": "#ffffff"
+      "black": "#000",
+      "blue": "#00f",
+      "white": "#fff"
     },
     "fontFamily": {
       "default": "Helvetica, Arial, sans-serif"
@@ -50,8 +50,11 @@ This will result in the following `style.css` file (with the opening reset rules
 ```scss
 // ...reset rules...
 
-.bg-orange {
-  background-color: #f53;
+.hover\:bg-black:hover {
+  background-color: #000;
+}
+.bg-blue {
+  background-color: #00f;
 }
 .color-white {
   color: #fff;
@@ -61,9 +64,6 @@ This will result in the following `style.css` file (with the opening reset rules
 }
 .font-bold {
   font-weight: bolder;
-}
-.hover\:bg-black:hover {
-  background-color: #000;
 }
 .px-4 {
   padding-right: 2rem;
@@ -89,7 +89,7 @@ $ npx generate-css --help
   Options
     -a, --append     Glob pattern for CSS files to append to the generated CSS file
     -c, --config     Path to a `generate-css` configuration file  (default generate-css.config.json)
-    -m, --minify     Whether to minify generated CSS file  (default false)
+    -m, --minify     Whether to minify the generated CSS file  (default false)
     -o, --output     Path to write the generated CSS file
     -p, --prepend    Glob pattern for CSS files to prepend to the generated CSS file
     -w, --watch      Whether to automatically generate a CSS file on changes to the source files  (default false)
@@ -100,7 +100,7 @@ $ npx generate-css --help
 
 ## Prior art
 
-- The functional CSS class naming convention used in Generate CSS is heavily inspired by [Tailwind](https://tailwindcss.com/) and [Tachyons](https://tachyons.io/)
+- The functional CSS class naming convention used in Generate CSS is heavily inspired by [Tailwind](https://tailwindcss.com/) and [Tachyons](https://tachyons.io/).
 
 ## License
 
