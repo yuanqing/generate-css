@@ -5,9 +5,9 @@
       "default": "16px"
     },
     "color": {
-      "black": "#000000",
-      "orange": "#ff5533",
-      "white": "#ffffff"
+      "black": "#000",
+      "blue": "#00f",
+      "white": "#fff"
     },
     "fontFamily": {
       "default": "Helvetica, Arial, sans-serif"
