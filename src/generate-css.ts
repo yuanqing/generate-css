@@ -65,10 +65,8 @@ async function readFilesAsync(pattern: string): Promise<string> {
 }
 
 function formatCss(css: string, minify: boolean) {
-  const result = csso.minify(css, { comments: false, forceMediaMerge: true })
-    .css
   if (minify === true) {
-    return result
+    return csso.minify(css, { comments: false, forceMediaMerge: true }).css
   }
-  return prettier.format(result, { parser: 'css' })
+  return prettier.format(css, { parser: 'css' })
 }
