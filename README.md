@@ -50,6 +50,9 @@ This will result in the following `style.css` file (with the opening reset rules
 ```scss
 // ...reset rules...
 
+html {
+  font-size: 16px;
+}
 .hover\:bg-black:hover {
   background-color: #000;
 }
