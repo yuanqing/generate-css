@@ -30,5 +30,38 @@ export function groupCssDeclarationBlocksByBreakpoint(
       cssDeclarationBlocks: breakpoints[breakpoint]
     })
   }
-  return result
+  return sortCss(result)
+}
+
+function sortCss(css: Array<CssDeclarationBlocks>) {
+  return css
+    .slice()
+    .sort(function (a, b) {
+      if (a.breakpoint === null) {
+        return -1
+      }
+      if (b.breakpoint === null) {
+        return 1
+      }
+      return a.breakpoint.localeCompare(b.breakpoint)
+    })
+    .map(function ({ breakpoint, cssDeclarationBlocks }: CssDeclarationBlocks) {
+      return {
+        breakpoint,
+        cssDeclarationBlocks: cssDeclarationBlocks
+          .slice()
+          .sort(function (x, y): number {
+            if (x.selector !== y.selector) {
+              return x.selector.localeCompare(y.selector)
+            }
+            if (x.pseudoClass === null) {
+              return -1
+            }
+            if (y.pseudoClass === null) {
+              return 1
+            }
+            return x.pseudoClass.value.localeCompare(y.pseudoClass.value)
+          })
+      }
+    })
 }
