@@ -25,7 +25,7 @@ Given the following `example.html` file:
     "baseFontSize": {
       "default": "16px"
     },
-    "baseSpace": "0.5rem",
+    "baseSpace": "1rem",
     "color": {
       "black": "#000",
       "blue": "#00f",
