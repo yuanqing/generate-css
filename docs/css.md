@@ -27,7 +27,7 @@ Class name | CSS rules
 ## border-radius
 
 - `defaultValue` = `theme.borderRadius.default`
-- `value` = `theme.borderRadius[key]` || `computeNumericValue(key)`
+- `value` = `theme.borderRadius[key]` || `resolveNumericValue(key)`
 
 Class name | CSS rules
 :--|:--
@@ -62,7 +62,7 @@ Class name | CSS rules
 ## border-width
 
 - `defaultValue` = `theme.borderWidth.default`
-- `value` = `theme.borderWidth[key]` || `computeNumericValue(key)`
+- `value` = `theme.borderWidth[key]` || `resolveNumericValue(key)`
 
 Class name | CSS rules
 :--|:--
@@ -173,7 +173,7 @@ Class name | CSS rules
 ## margin
 
 - `defaultValue` = `theme.margin.default` || `theme.space.default`
-- `value` = `theme.margin[key]` || `theme.space[key]` || `computeNumericValue(key)`
+- `value` = `theme.margin[key]` || `theme.space[key]` || `resolveNumericValue(key)`
 
 Class name | CSS rules
 :--|:--
