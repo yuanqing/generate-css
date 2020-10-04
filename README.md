@@ -111,9 +111,9 @@ For certain CSS classes, if `theme[propertyName][key]` is `undefined`, the value
 `auto` | `auto` | `w-auto` → `width: auto;`
 `full` | `100%` | `w-full` → `width: 100%;`
 `px` | `1px` | `w-px` → `width: 1px;`
-`([0-9]+)px` | `$1px` | `w-8px` → `width: 8px;`
+`([0-9]+)px` | `($1)px` | `w-8px` → `width: 8px;`
 `([0-9]+)/([0-9]+)` | `($1 / $2 * 100)%` | `w-2/3` → `width: 66.666667%;`
-`([0-9]+)` | `theme.baseSpace` × `$1` | `w-2` → `width: 2rem;`<br>(Assuming `theme.baseSpace` = `1rem`)
+`([0-9]+)` | `theme.baseSpace` × `($1)` | `w-2` → `width: 2rem;`<br>(Assuming `theme.baseSpace` = `1rem`)
 
 ### Pseudo-class
 
