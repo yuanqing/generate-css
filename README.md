@@ -94,7 +94,7 @@ Note that:
 
 See the [full list of functional CSS classes](/docs/css.md#readme) currently supported by Generate CSS.
 
-Note that there are two types of functional CSS classes:
+There are two “types” of functional CSS classes:
 
 #### Classes *without* a `${key}`
 
@@ -115,7 +115,7 @@ For certain CSS classes, if `theme[propertyName][key]` is `undefined`, the value
 `([0-9]+)/([0-9]+)` | `($1 / $2 * 100)%` | `w-2/3` → `width: 66.666667%;`
 `([0-9]+)` | `theme.baseSpace` × `($1)` | `w-2` → `width: 2rem;`<br>(Assuming `theme.baseSpace` = `1rem`)
 
-### Pseudo-class
+### Pseudo-classes
 
 To apply a style on an element for a particular pseudo-class state only, add the pseudo-class keyword followed by a `:` character (eg. `hover:`) *before* the functional CSS class name.
 
@@ -127,7 +127,7 @@ For example, using the class `hover:bg-black` would result in the following gene
 }
 ```
 
-### Parent pseudo-class
+### Parent pseudo-classes
 
 To apply a style on an element for a particular parent pseudo-class state only, add the special parent pseudo-class keyword followed by a `:` character (eg. `parent-hover:`) *before* the functional CSS class name.
 
@@ -146,7 +146,6 @@ Define breakpoints under the `theme.breakpoint` key in `generate-css.config.json
 ```json
 {
   "theme": {
-    // ...
     "breakpoint": {
       "sm": "540px",
       "md": "960px"
