@@ -2,7 +2,7 @@
 border-width
 
 - `defaultValue` = `theme.borderWidth.default`
-- `value` = `theme.borderWidth[key]` || `computeNumericValue(key)`
+- `value` = `theme.borderWidth[key]` || `resolveNumericValue(key)`
 
 `.b` | `border-width: ${defaultValue};`
 `.bx` | `border-left-width: ${defaultValue};`<br>`border-right-width: ${defaultValue};`

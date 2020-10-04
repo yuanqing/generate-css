@@ -2,7 +2,7 @@
 margin
 
 - `defaultValue` = `theme.margin.default` || `theme.space.default`
-- `value` = `theme.margin[key]` || `theme.space[key]` || `computeNumericValue(key)`
+- `value` = `theme.margin[key]` || `theme.space[key]` || `resolveNumericValue(key)`
 
 `.m` | `margin: ${defaultValue};`
 `.mx` | `margin-left: ${defaultValue};`<br>`margin-right: ${defaultValue};`

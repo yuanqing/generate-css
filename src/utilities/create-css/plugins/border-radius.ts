@@ -2,7 +2,7 @@
 border-radius
 
 - `defaultValue` = `theme.borderRadius.default`
-- `value` = `theme.borderRadius[key]` || `computeNumericValue(key)`
+- `value` = `theme.borderRadius[key]` || `resolveNumericValue(key)`
 
 `.rounded` | `border-radius: ${defaultValue};`
 `.rounded-t` | `border-top-left-radius: ${defaultValue};`<br>`border-top-right-radius: ${defaultValue};`
