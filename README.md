@@ -70,11 +70,11 @@ html {
 .font-bold {
   font-weight: bolder;
 }
-.px-4 {
+.px-2 {
   padding-right: 2rem;
   padding-left: 2rem;
 }
-.py-2 {
+.py-1 {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
@@ -86,7 +86,7 @@ html {
 Note that:
 
 - With `theme.baseFontSize.default` set to `16px`, `font-size: 16px;` is applied on `html`.
-- With `theme.baseSpace` set to `0.5rem`, the padding value of `px-4` is `2rem` (ie. `0.5rem` × `4`), and the padding value of `py-2` is `1rem` (ie. `0.5rem` × `2`).
+- With `theme.baseSpace` set to `1rem`, the padding value of `px-2` is `2rem` (ie. `1rem` × `2`), and the padding value of `py-1` is `1rem` (ie. `1rem` × `2`).
 
 ## Usage
 
@@ -94,26 +94,26 @@ Note that:
 
 See the [full list of functional CSS classes](/docs/css.md#readme) currently supported by Generate CSS.
 
-There are 2 types of functional CSS classes:
+Note that there are two types of functional CSS classes:
 
 #### Classes *without* a `${key}`
 
 For these classes, the value used in the generated CSS would generally be resolved from `theme[propertyName].default`.
 
-#### Classes *with* a dynamic `${key}`
+#### Classes *with* a `${key}`
 
 For these classes, the value used in the generated CSS would generally be resolved from `theme[propertyName][key]`.
 
-For certain CSS classes, if `theme[propertyName][key]` is `undefined`, the value used in the generated CSS might then be resolved using the following mapping (`resolveNumericValue(key)`):
+For certain CSS classes, if `theme[propertyName][key]` is `undefined`, the value used in the generated CSS might then be resolved using the following mapping:
 
-Key | Resolved value | Example
+`key` | `resolveNumericValue(key)` | Example
 :--|:--|:--
 `auto` | `auto` | `w-auto` → `width: auto;`
 `full` | `100%` | `w-full` → `width: 100%;`
 `px` | `1px` | `w-px` → `width: 1px;`
 `([0-9]+)px` | `$1px` | `w-8px` → `width: 8px;`
 `([0-9]+)/([0-9]+)` | `($1 / $2 * 100)%` | `w-2/3` → `width: 66.666667%;`
-`([0-9]+)` | `theme.baseSpace` × `$1` | `w-2` → `width: 2rem`<br>(assuming `theme.baseSpace` = `1rem`)
+`([0-9]+)` | `theme.baseSpace` × `$1` | `w-2` → `width: 2rem;`<br>(Assuming `theme.baseSpace` = `1rem`)
 
 ### Pseudo-class
 
@@ -172,6 +172,9 @@ For example, using the class `sm@bg-black` would result in the following generat
 ```
 $ npx generate-css --help
 
+  Description
+    Dynamically generate functional CSS classes from HTML and JavaScript source files
+
   Usage
     $ generate-css <pattern> [options]
 
@@ -184,6 +187,13 @@ $ npx generate-css --help
     -w, --watch      Whether to automatically generate a CSS file on changes to the source files  (default false)
     -v, --version    Displays current version
     -h, --help       Displays this message
+
+  Examples
+    $ generate-css --append reset.css
+    $ generate-css --minify
+    $ generate-css --output style.css
+    $ generate-css --prepend custom.css
+    $ generate-css --watch
 
 ```
 
