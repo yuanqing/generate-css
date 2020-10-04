@@ -4,6 +4,7 @@
     "baseFontSize": {
       "default": "16px"
     },
+    "baseSpace": "0.5rem",
     "color": {
       "black": "#000",
       "blue": "#00f",
@@ -14,7 +15,6 @@
     },
     "fontWeight": {
       "bold": "bolder"
-    },
-    "space": "0.5rem"
+    }
   }
 }
