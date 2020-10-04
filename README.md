@@ -2,19 +2,21 @@
 
 > Dynamically generate functional CSS classes from HTML and JavaScript source files
 
-- Style your app via a class shorthand, with support for pseudo-classes and media queries
-- Zero unused CSS; functional CSS classes are only included in the generated CSS file if they are actually used
+## Features
+
+- Style your HTML using functional CSS classes, with support for applying styles specific to pseudo-classes (eg. `hover:bg-black`, `group-hover:bg-black`) and breakpoints (eg. `sm@bg-black`)
+- Guarantees zero unused CSS; classes are only included in the generated CSS file if they are actually used
 
 ## Example
 
-Given an `example.html` file:
+Given the following `example.html` file:
 
 ```html
 <link href="style.css" rel="stylesheet">
 <button class="bg-blue color-white font font-bold px-4 py-2 rounded-full hover:bg-black">Button</button>
 ```
 
-And the following `generate-css.config.json` file:
+…and the following `generate-css.config.json` configuration file:
 
 ```json
 {
@@ -23,6 +25,7 @@ And the following `generate-css.config.json` file:
     "baseFontSize": {
       "default": "16px"
     },
+    "baseSpace": "0.5rem",
     "color": {
       "black": "#000",
       "blue": "#00f",
@@ -33,8 +36,7 @@ And the following `generate-css.config.json` file:
     },
     "fontWeight": {
       "bold": "bolder"
-    },
-    "space": "0.5rem"
+    }
   }
 }
 ```
@@ -45,9 +47,9 @@ Do:
 $ npx generate-css example.html --output style.css
 ```
 
-This will result in the following `style.css` file (with the opening reset rules omitted):
+This will generate the following `style.css` file (with the opening reset rules omitted):
 
-```scss
+```
 // ...reset rules...
 
 html {
@@ -78,6 +80,90 @@ html {
 }
 .rounded-full {
   border-radius: 9999px;
+}
+```
+
+Note that:
+
+- With `theme.baseFontSize.default` set to `16px`, `font-size: 16px;` is applied on `html`.
+- With `theme.baseSpace` set to `0.5rem`, the padding value of `px-4` is `2rem` (ie. `0.5rem` × `4`), and the padding value of `py-2` is `1rem` (ie. `0.5rem` × `2`).
+
+## Usage
+
+### General concepts
+
+See the [full list of functional CSS classes](/docs/css.md#readme) currently supported by Generate CSS.
+
+There are 2 types of functional CSS classes:
+
+#### Classes *without* a `${key}`
+
+For these classes, the value used in the generated CSS would generally be resolved from `theme[propertyName].default`.
+
+#### Classes *with* a dynamic `${key}`
+
+For these classes, the value used in the generated CSS would generally be resolved from `theme[propertyName][key]`.
+
+For certain CSS classes, if `theme[propertyName][key]` is `undefined`, the value used in the generated CSS might then be resolved using the following mapping (`resolveNumericValue(key)`):
+
+Key | Resolved value | Example
+:--|:--|:--
+`auto` | `auto` | `w-auto` → `width: auto;`
+`full` | `100%` | `w-full` → `width: 100%;`
+`px` | `1px` | `w-px` → `width: 1px;`
+`([0-9]+)px` | `$1px` | `w-8px` → `width: 8px;`
+`([0-9]+)/([0-9]+)` | `($1 / $2 * 100)%` | `w-2/3` → `width: 66.666667%;`
+`([0-9]+)` | `theme.baseSpace` × `$1` | `w-2` → `width: 2rem`<br>(assuming `theme.baseSpace` = `1rem`)
+
+### Pseudo-class
+
+To apply a style on an element for a particular pseudo-class state only, add the pseudo-class keyword followed by a `:` character (eg. `hover:`) *before* the functional CSS class name.
+
+For example, using the class `hover:bg-black` would result in the following generated CSS:
+
+```
+.hover\:bg-black:hover {
+  background-color: #000;
+}
+```
+
+### Parent pseudo-class
+
+To apply a style on an element for a particular parent pseudo-class state only, add the special parent pseudo-class keyword followed by a `:` character (eg. `parent-hover:`) *before* the functional CSS class name.
+
+For example, using the class `parent-hover:bg-black` would result in the following generated CSS:
+
+```
+.parent:hover .parent-hover\:bg-black {
+  background-color: #000;
+}
+```
+
+### Breakpoints
+
+Define breakpoints under the `theme.breakpoint` key in `generate-css.config.json`:
+
+```json
+{
+  "theme": {
+    // ...
+    "breakpoint": {
+      "sm": "540px",
+      "md": "960px"
+    }
+  }
+}
+```
+
+To apply a style on an element at a particular breakpoint and higher, add the name of the breakpoint followed by an `@` character (eg. `sm@`) *before* the functional CSS class name.
+
+For example, using the class `sm@bg-black` would result in the following generated CSS:
+
+```
+@media (min-width: 540px) {
+  .sm\@bg-black {
+    background-color: #000;
+  }
 }
 ```
 
