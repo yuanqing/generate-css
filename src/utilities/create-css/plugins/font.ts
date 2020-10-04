@@ -1,3 +1,18 @@
+/*
+font-family
+
+`.font` | `font-family: ${theme.fontFamily.default};`
+`.font-${key}` | `font-family: ${theme.fontFamily[key]};`
+---
+font-size
+
+`.font-${key}` | `font-size: ${theme.fontSize[key]};`
+---
+font-weight
+
+`.font-${key}` | `font-weight: ${theme.fontWeight[key]};`
+*/
+
 import { Plugin, Theme, ThemeKeys } from '../../../types'
 
 export const font: Plugin = {

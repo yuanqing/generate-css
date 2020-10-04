@@ -1,3 +1,10 @@
+/*
+line-height
+
+`.leading` | `line-height: ${theme.lineHeight.default};`
+`.leading-${key}` | `line-height: ${theme.lineHeight[key]};`
+*/
+
 import { Plugin, ThemeKeys } from '../../../types'
 
 export const lineHeight: Plugin = {

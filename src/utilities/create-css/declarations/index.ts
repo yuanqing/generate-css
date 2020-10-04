@@ -8,6 +8,7 @@ import { outline } from './outline'
 import { position } from './position'
 import { select } from './select'
 import { textAlign } from './text-align'
+import { textDecoration } from './text-decoration'
 import { textTransform } from './text-transform'
 
 export const declarations: { [selector: string]: Declarations } = {
@@ -20,5 +21,6 @@ export const declarations: { [selector: string]: Declarations } = {
   ...position,
   ...select,
   ...textAlign,
+  ...textDecoration,
   ...textTransform
 }

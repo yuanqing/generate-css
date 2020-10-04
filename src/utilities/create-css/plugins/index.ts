@@ -7,7 +7,7 @@ import { font } from './font'
 import { letterSpacing } from './letter-spacing'
 import { lineHeight } from './line-height'
 import { marginAndPadding } from './margin-and-padding'
-import { text } from './text'
+import { textStyle } from './text-style'
 import { widthAndHeight } from './width-and-height'
 
 export const plugins = [
@@ -20,6 +20,6 @@ export const plugins = [
   letterSpacing,
   lineHeight,
   marginAndPadding,
-  text,
+  textStyle,
   widthAndHeight
 ]

@@ -1,3 +1,25 @@
+/*
+border-width
+
+- `defaultValue` = `theme.borderWidth.default`
+- `value` = `theme.borderWidth[key]` || `computeNumericValue(key)`
+
+`.b` | `border-width: ${defaultValue};`
+`.bx` | `border-left-width: ${defaultValue};`<br>`border-right-width: ${defaultValue};`
+`.by` | `border-top-width: ${defaultValue};`<br>`border-bottom-width: ${defaultValue};`
+`.bt` | `border-top-width: ${defaultValue};`
+`.br` | `border-right-width: ${defaultValue};`
+`.bb` | `border-bottom-width: ${defaultValue};`
+`.bl` | `border-left-width: ${defaultValue};`
+`.b-${key}` | `border-width: ${value};`
+`.bx-${key}` | `border-left-width: ${value};`<br>`border-right-width: ${value};`
+`.by-${key}` | `border-top-width: ${value};`<br>`border-bottom-width: ${value};`
+`.bt-${key}` | `border-top-width: ${value};`
+`.br-${key}` | `border-right-width: ${value};`
+`.bb-${key}` | `border-bottom-width: ${value};`
+`.bl-${key}` | `border-left-width: ${value};`
+*/
+
 import { Plugin, ThemeKeys } from '../../../types'
 
 export const borderWidth: Plugin = {

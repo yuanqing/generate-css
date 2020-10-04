@@ -42,7 +42,7 @@ test('pseudo-class', function (t) {
   t.deepEqual(parseClassName('hover:block', []), {
     breakpoint: null,
     pseudoClass: {
-      isGroup: false,
+      isParent: false,
       value: 'hover'
     },
     selector: 'block'
@@ -54,7 +54,7 @@ test('group pseudo-class', function (t) {
   t.deepEqual(parseClassName('group-hover:block', []), {
     breakpoint: null,
     pseudoClass: {
-      isGroup: true,
+      isParent: true,
       value: 'hover'
     },
     selector: 'block'
@@ -66,7 +66,7 @@ test('valid breakpoint and pseudo-class', function (t) {
   t.deepEqual(parseClassName('sm@hover:block', ['sm']), {
     breakpoint: 'sm',
     pseudoClass: {
-      isGroup: false,
+      isParent: false,
       value: 'hover'
     },
     selector: 'block'
@@ -78,7 +78,7 @@ test('valid breakpoint and group pseudo-class', function (t) {
   t.deepEqual(parseClassName('sm@group-hover:block', ['sm']), {
     breakpoint: 'sm',
     pseudoClass: {
-      isGroup: true,
+      isParent: true,
       value: 'hover'
     },
     selector: 'block'

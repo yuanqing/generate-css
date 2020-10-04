@@ -34,17 +34,17 @@ function parsePseudoClass(
   pseudoClass: string
 ): {
   value: string
-  isGroup: boolean
+  isParent: boolean
 } {
   const matches = pseudoClass.match(groupPseudoClassRegex)
   if (matches === null) {
     return {
-      isGroup: false,
+      isParent: false,
       value: pseudoClass
     }
   }
   return {
-    isGroup: true,
+    isParent: true,
     value: matches[1]
   }
 }

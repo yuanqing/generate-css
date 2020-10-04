@@ -1,3 +1,10 @@
+/*
+border-color
+
+`.border` | `border-color: ${theme.borderColor.default || theme.color.default};`
+`.border-${key}` | `border-color: ${theme.borderColor[key] || theme.color[key]};`
+*/
+
 import { Plugin, ThemeKeys } from '../../../types'
 
 export const borderColor: Plugin = {

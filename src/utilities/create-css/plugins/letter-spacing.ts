@@ -1,3 +1,10 @@
+/*
+letter-spacing
+
+`.kerning` | `letter-spacing: ${theme.letterSpacing.default};`
+`.kerning-${key}` | `letter-spacing: ${theme.letterSpacing[key]};`
+*/
+
 import { Plugin, ThemeKeys } from '../../../types'
 
 export const letterSpacing: Plugin = {

@@ -1,3 +1,10 @@
+/*
+color
+
+`.color` | `color: ${theme.color.default};`
+`.color-${key}` | `color: ${theme.color[key]};`
+*/
+
 import { Plugin, ThemeKeys } from '../../../types'
 
 export const color: Plugin = {

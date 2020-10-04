@@ -7,7 +7,7 @@ const integerRegex = /^\d+$/
 export function computeNumericValueFactory(
   theme: Theme
 ): (value: undefined | string, themeKeys: Array<ThemeKeys>) => null | string {
-  const parsedSpace = parseSpace(theme.space)
+  const parsedSpace = parseSpace(theme.baseSpace)
   return function (
     value = 'default',
     themeKeys: Array<ThemeKeys>

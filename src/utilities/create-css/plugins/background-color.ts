@@ -1,3 +1,10 @@
+/*
+background-color
+
+`.bg` | `background-color: ${theme.backgroundColor.default || theme.color.default};`
+`.bg-${key}` | `background-color: ${theme.backgroundColor[key] || theme.color[key]};`
+*/
+
 import { Plugin, ThemeKeys } from '../../../types'
 
 export const backgroundColor: Plugin = {

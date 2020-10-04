@@ -65,7 +65,7 @@ test('pseudo-class', function (t) {
     declarations: {
       display: 'block'
     },
-    pseudoClass: { isGroup: false, value: 'hover' },
+    pseudoClass: { isParent: false, value: 'hover' },
     selector: 'block'
   })
 })
@@ -78,7 +78,7 @@ test('group pseudo-class', function (t) {
     declarations: {
       display: 'block'
     },
-    pseudoClass: { isGroup: true, value: 'hover' },
+    pseudoClass: { isParent: true, value: 'hover' },
     selector: 'block'
   })
 })
@@ -97,7 +97,7 @@ test('valid breakpoint and pseudo-class', function (t) {
       declarations: {
         display: 'block'
       },
-      pseudoClass: { isGroup: false, value: 'hover' },
+      pseudoClass: { isParent: false, value: 'hover' },
       selector: 'block'
     }
   )
@@ -117,7 +117,7 @@ test('valid breakpoint and group pseudo-class', function (t) {
       declarations: {
         display: 'block'
       },
-      pseudoClass: { isGroup: true, value: 'hover' },
+      pseudoClass: { isParent: true, value: 'hover' },
       selector: 'block'
     }
   )

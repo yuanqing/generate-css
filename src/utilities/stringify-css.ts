@@ -32,12 +32,12 @@ function stringifyCssDeclarationBlocks(
 ): string {
   const result = []
   for (const { className, declarations, pseudoClass } of cssDeclarationBlocks) {
-    if (pseudoClass !== null && pseudoClass.isGroup === true) {
+    if (pseudoClass !== null && pseudoClass.isParent === true) {
       result.push(`.group${stringifyPseudoClass(pseudoClass.value)} `)
     }
     result.push('.')
     result.push(escapeSpecialCharacters(className))
-    if (pseudoClass !== null && pseudoClass.isGroup === false) {
+    if (pseudoClass !== null && pseudoClass.isParent === false) {
       result.push(stringifyPseudoClass(pseudoClass.value))
     }
     result.push(`{${stringifyDeclarations(declarations)}}`)

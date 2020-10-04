@@ -15,6 +15,7 @@ export interface Config extends CliOptions {
 export type Theme = {
   backgroundColor?: ThemeItem
   baseFontSize?: ThemeItem
+  baseSpace?: string
   borderColor?: ThemeItem
   borderRadius?: ThemeItem
   borderWidth?: ThemeItem
@@ -32,7 +33,7 @@ export type Theme = {
   maxWidth?: ThemeItem
   minWidth?: ThemeItem
   padding?: ThemeItem
-  space?: string
+  space?: ThemeItem
   width?: ThemeItem
 }
 
@@ -40,7 +41,7 @@ export type ThemeItem = {
   [key: string]: string
 }
 
-export type ThemeKeys = Exclude<keyof Theme, 'space'>
+export type ThemeKeys = Exclude<keyof Theme, 'baseSpace'>
 
 export interface ParsedClassName {
   breakpoint: null | string
@@ -49,7 +50,7 @@ export interface ParsedClassName {
 }
 
 export type PseudoClass = {
-  isGroup: boolean
+  isParent: boolean
   value: string
 }
 
