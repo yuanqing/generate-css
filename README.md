@@ -4,7 +4,7 @@
 
 ## Features
 
-- Style your HTML using functional CSS classes, with support for applying styles specific to pseudo-classes (eg. `hover:bg-black`, `group-hover:bg-black`) and breakpoints (eg. `sm@bg-black`)
+- Style your HTML using functional CSS classes, with support for applying styles specific to a pseudo-class (eg. `hover:bg-black`, `parent-hover:bg-black`) and/or specific to a breakpoint (eg. `sm@bg-black`)
 - Guarantees zero unused CSS; classes are only included in the generated CSS file if they are actually used
 
 ## Example
@@ -13,7 +13,7 @@ Given the following `example.html` file:
 
 ```html
 <link href="style.css" rel="stylesheet">
-<button class="bg-blue color-white font font-bold px-4 py-2 rounded-full hover:bg-black">Button</button>
+<button class="bg-blue color-white font font-bold px-2 py-1 rounded-full hover:bg-black">Button</button>
 ```
 
 …and the following `generate-css.config.json` configuration file:
@@ -85,12 +85,12 @@ html {
 
 Note that:
 
-- With `theme.baseFontSize.default` set to `16px`, `font-size: 16px;` is applied on `html`.
-- With `theme.baseSpace` set to `1rem`, the padding value of `px-2` is `2rem` (ie. `1rem` × `2`), and the padding value of `py-1` is `1rem` (ie. `1rem` × `2`).
+- Because `theme.baseFontSize.default` set to `16px`, `font-size: 16px;` is applied on `html`.
+- Because `theme.baseSpace` set to `1rem`, the padding value of `.px-2` is `2rem` (ie. `1rem` × `2`), and the padding value of `.py-1` is `1rem` (ie. `1rem` × `2`).
 
 ## Usage
 
-### General concepts
+### Functional CSS classes
 
 See the [full list of functional CSS classes](/docs/css.md#readme) currently supported by Generate CSS.
 
@@ -98,11 +98,11 @@ There are two “types” of functional CSS classes:
 
 #### Classes *without* a `${key}`
 
-For these classes, the value used in the generated CSS would generally be resolved from `theme[propertyName].default`.
+For these classes, the `value` used in the generated CSS would generally be resolved from `theme[propertyName].default`.
 
 #### Classes *with* a `${key}`
 
-For these classes, the value used in the generated CSS would generally be resolved from `theme[propertyName][key]`.
+For these classes, the `value` used in the generated CSS would generally be resolved from `theme[propertyName][key]`.
 
 For certain CSS classes, if `theme[propertyName][key]` is `undefined`, the value used in the generated CSS might then be resolved using the following mapping:
 
@@ -113,13 +113,13 @@ For certain CSS classes, if `theme[propertyName][key]` is `undefined`, the value
 `px` | `1px` | `w-px` → `width: 1px;`
 `([0-9]+)px` | `($1)px` | `w-8px` → `width: 8px;`
 `([0-9]+)/([0-9]+)` | `($1 / $2 * 100)%` | `w-2/3` → `width: 66.666667%;`
-`([0-9]+)` | `theme.baseSpace` × `($1)` | `w-2` → `width: 2rem;`<br>(Assuming `theme.baseSpace` = `1rem`)
+`([0-9]+)` | `theme.baseSpace` × `($1)` | `w-2` → `width: 2rem;`<br>(assuming `theme.baseSpace` is set to `1rem`)
 
 ### Pseudo-classes
 
 To apply a style on an element for a particular pseudo-class state only, add the pseudo-class keyword followed by a `:` character (eg. `hover:`) *before* the functional CSS class name.
 
-For example, using the class `hover:bg-black` would result in the following generated CSS:
+For example, using the class `hover:bg-black` would result in the following CSS being generated:
 
 ```
 .hover\:bg-black:hover {
@@ -131,7 +131,7 @@ For example, using the class `hover:bg-black` would result in the following gene
 
 To apply a style on an element for a particular parent pseudo-class state only, add the special parent pseudo-class keyword followed by a `:` character (eg. `parent-hover:`) *before* the functional CSS class name.
 
-For example, using the class `parent-hover:bg-black` would result in the following generated CSS:
+For example, using the class `parent-hover:bg-black` would result in the following CSS being generated:
 
 ```
 .parent:hover .parent-hover\:bg-black {
@@ -141,7 +141,7 @@ For example, using the class `parent-hover:bg-black` would result in the followi
 
 ### Breakpoints
 
-Define breakpoints under the `theme.breakpoint` key in `generate-css.config.json`:
+Breakpoints must first be defined under the `theme.breakpoint` key in `generate-css.config.json`:
 
 ```json
 {
@@ -154,9 +154,9 @@ Define breakpoints under the `theme.breakpoint` key in `generate-css.config.json
 }
 ```
 
-To apply a style on an element at a particular breakpoint and higher, add the name of the breakpoint followed by an `@` character (eg. `sm@`) *before* the functional CSS class name.
+To apply a style on an element for a particular breakpoint and higher (the media-query is a `min-width` on the particular breakpoint), add the name of the breakpoint followed by an `@` character (eg. `sm@`) *before* the functional CSS class name.
 
-For example, using the class `sm@bg-black` would result in the following generated CSS:
+For example, using the class `sm@bg-black` would result in the following CSS being generated:
 
 ```
 @media (min-width: 540px) {
@@ -165,6 +165,48 @@ For example, using the class `sm@bg-black` would result in the following generat
   }
 }
 ```
+
+### Configuration
+
+Generate CSS is configured using a `generate-css.config.json` file.
+
+#### `"reset"`
+
+(*`boolean`*)
+
+Whether to prepend reset rules from [`normalize.css`](https://github.com/necolas/normalize.css/blob/master/normalize.css) and Generate CSS’s [`reset.css` file](https://github.com/yuanqing/generate-css/blob/master/src/css/reset.css) to the generated CSS file. Defaults to `true`.
+
+#### `"theme"`
+
+(*`object`*)
+
+All keys are optional.
+
+- `theme.baseSpace` (*`string`*) — The base space unit used to resolve functional class names with a `${key}`, eg. `w-2` → `width: 2rem;` (assuming `theme.baseSpace` is set to `1rem`)
+- `theme.baseFontSize` (*`object`*) — A mapping of breakpoint names to the base `font-size` to be applied on the `html` element for that breakpoint. `theme.baseFontSize.default` is the base `font-size` applied on the `html` element.
+- `theme.breakpoints` (*`object`*) — A mapping of breakpoint names to screen widths.
+
+All other keys are a mapping of the `${keys}` used in functional CSS classes to their corresponding values:
+
+- `theme.backgroundColor`
+- `theme.borderColor`
+- `theme.borderRadius`
+- `theme.borderWidth`
+- `theme.color`
+- `theme.fontFamily`
+- `theme.fontSize`
+- `theme.fontWeight`
+- `theme.height`
+- `theme.letterSpacing`
+- `theme.lineHeight`
+- `theme.margin`
+- `theme.maxHeight`
+- `theme.minHeight`
+- `theme.maxWidth`
+- `theme.minWidth`
+- `theme.padding`
+- `theme.space`
+- `theme.width`
 
 ## CLI
 
