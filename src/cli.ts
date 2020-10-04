@@ -5,6 +5,9 @@ import { build } from './build'
 import { watch } from './watch'
 
 sade('generate-css <pattern>', true)
+  .describe(
+    'Dynamically generate functional CSS classes from HTML and JavaScript source files'
+  )
   .option(
     '-a, --append',
     'Glob pattern for CSS files to append to the generated CSS file'
@@ -25,6 +28,11 @@ sade('generate-css <pattern>', true)
     'Whether to automatically generate a CSS file on changes to the source files',
     false
   )
+  .example('--append reset.css')
+  .example('--minify')
+  .example('--output style.css')
+  .example('--prepend custom.css')
+  .example('--watch')
   .action(async function (
     pattern: string,
     options: {
