@@ -11,13 +11,16 @@
 
 Given the following `example.html` file:
 
+<!-- ```html markdown-interpolate: cat example/example.html -->
 ```html
 <link href="style.css" rel="stylesheet">
 <button class="bg-blue color-white font font-bold px-2 py-1 rounded-full hover:bg-black">Button</button>
 ```
+<!-- ``` end -->
 
 …and the following `generate-css.config.json` configuration file:
 
+<!-- ```json markdown-interpolate: cat example/generate-css.config.json -->
 ```json
 {
   "reset": true,
@@ -40,6 +43,7 @@ Given the following `example.html` file:
   }
 }
 ```
+<!-- ``` end -->
 
 Do:
 
@@ -184,10 +188,11 @@ All keys are optional.
 
 - `theme.baseSpace` (*`string`*) — The base space unit used to resolve functional class names with a `${key}`, eg. `w-2` → `width: 2rem;` (assuming `theme.baseSpace` is set to `1rem`)
 - `theme.baseFontSize` (*`object`*) — A mapping of breakpoint names to the base `font-size` to be applied on the `html` element for that breakpoint. `theme.baseFontSize.default` is the base `font-size` applied on the `html` element.
-- `theme.breakpoints` (*`object`*) — A mapping of breakpoint names to screen widths.
+- `theme.breakpoint` (*`object`*) — A mapping of breakpoint names to screen widths.
 
 All other keys are objects that map `${keys}` referenced in your functional CSS classes to their corresponding values:
 
+<!-- markdown-interpolate: ts-node scripts/print-theme-keys.ts -->
 - `theme.backgroundColor`
 - `theme.borderColor`
 - `theme.borderRadius`
@@ -201,17 +206,18 @@ All other keys are objects that map `${keys}` referenced in your functional CSS 
 - `theme.lineHeight`
 - `theme.margin`
 - `theme.maxHeight`
-- `theme.minHeight`
 - `theme.maxWidth`
+- `theme.minHeight`
 - `theme.minWidth`
 - `theme.padding`
 - `theme.space`
 - `theme.width`
+<!-- end -->
 
 ## CLI
 
+<!-- ``` markdown-interpolate: ts-node src/cli.ts --help -->
 ```
-$ npx generate-css --help
 
   Description
     Dynamically generate functional CSS classes from HTML and JavaScript source files
@@ -235,8 +241,8 @@ $ npx generate-css --help
     $ generate-css --output style.css
     $ generate-css --prepend custom.css
     $ generate-css --watch
-
 ```
+<!-- ``` end -->
 
 ## Prior art
 
