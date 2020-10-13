@@ -1,18 +1,73 @@
 import * as fs from 'fs-extra'
+import * as path from 'path'
 
-import { CliOptions, Config } from '../types'
+import { CliOptions, Config, Theme } from '../types'
+
+const CONFIG_FILE_NAME = 'generate-css.config.json'
+const PACKAGE_JSON_KEY = 'generate-css'
+
+const defaultConfig = {
+  reset: true,
+  theme: {}
+}
 
 export async function readConfigAsync(cliOptions: CliOptions): Promise<Config> {
-  if ((await fs.pathExists(cliOptions.configFilePath)) === false) {
-    throw new Error(`File not found: ${cliOptions.configFilePath}`)
+  const configFilePath = cliOptions.configFilePath
+  if (typeof configFilePath === 'string') {
+    if ((await fs.pathExists(configFilePath)) === false) {
+      throw new Error(`Configuration file not found: ${configFilePath}`)
+    }
+    const config = await readGenerateCssConfig(configFilePath)
+    return {
+      ...defaultConfig,
+      ...cliOptions,
+      ...config
+    }
   }
-  const config = JSON.parse(
-    await fs.readFile(cliOptions.configFilePath, 'utf8')
-  )
+  const packageJsonConfig = await readPackageJsonConfig()
+  if (packageJsonConfig !== null) {
+    return {
+      ...defaultConfig,
+      ...cliOptions,
+      ...packageJsonConfig
+    }
+  }
+  const defaultConfigFilePath = path.join(process.cwd(), CONFIG_FILE_NAME)
+  if ((await fs.pathExists(defaultConfigFilePath)) === true) {
+    const config = await readGenerateCssConfig(defaultConfigFilePath)
+    return {
+      ...defaultConfig,
+      ...cliOptions,
+      ...config
+    }
+  }
   return {
-    reset: true,
-    theme: {},
-    ...cliOptions,
-    ...config
+    ...defaultConfig,
+    ...cliOptions
   }
+}
+
+async function readPackageJsonConfig(): Promise<null | {
+  reset: boolean
+  theme: Theme
+}> {
+  const packageJsonFilePath = path.join(process.cwd(), 'package.json')
+  if ((await fs.pathExists(packageJsonFilePath)) === false) {
+    return null
+  }
+  const packageJson = require(packageJsonFilePath)
+  const config = packageJson[PACKAGE_JSON_KEY]
+  if (typeof config === 'undefined') {
+    return null
+  }
+  return config
+}
+
+async function readGenerateCssConfig(
+  filePath: string
+): Promise<{
+  reset: boolean
+  theme: Theme
+}> {
+  return JSON.parse(await fs.readFile(filePath, 'utf8'))
 }

@@ -1,6 +1,6 @@
 export interface CliOptions {
   appendCssFilesPattern: null | string
-  configFilePath: string
+  configFilePath: null | string
   minify: boolean
   outputPath: null | string
   prependCssFilesPattern: null | string

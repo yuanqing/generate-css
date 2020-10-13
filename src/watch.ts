@@ -5,7 +5,10 @@ import { CliOptions } from './types'
 import { log } from './utilities/log'
 
 export function watch(cliOptions: CliOptions): void {
-  const files = [cliOptions.configFilePath, cliOptions.sourceFilesPattern]
+  const files = [cliOptions.sourceFilesPattern]
+  if (typeof cliOptions.configFilePath === 'string') {
+    files.push(cliOptions.configFilePath)
+  }
   if (cliOptions.prependCssFilesPattern !== null) {
     files.push(cliOptions.prependCssFilesPattern)
   }

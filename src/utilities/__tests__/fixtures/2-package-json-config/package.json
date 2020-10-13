@@ -1,0 +1,10 @@
+{
+  "generate-css": {
+    "reset": false,
+    "theme": {
+      "color": {
+        "default": "#ffffff"
+      }
+    }
+  }
+}

@@ -172,7 +172,7 @@ For example, using the class `sm@bg-black` in your HTML would result in the foll
 
 ### Configuration
 
-Configure Generate CSS using a `generate-css.config.json` file.
+Configure Generate CSS via a `generate-css.config.json` file or a `generate-css` key in your `package.json`.
 
 #### `"reset"`
 
@@ -227,7 +227,7 @@ All other keys are objects that map `${keys}` referenced in your functional CSS 
 
   Options
     -a, --append     Glob pattern for CSS files to append to the generated CSS file
-    -c, --config     Path to a `generate-css` configuration file  (default generate-css.config.json)
+    -c, --config     Path to a `generate-css` configuration file
     -m, --minify     Whether to minify the generated CSS file  (default false)
     -o, --output     Path to write the generated CSS file
     -p, --prepend    Glob pattern for CSS files to prepend to the generated CSS file
