@@ -1,23 +1,4 @@
 /*
-margin
-
-- `defaultValue` = `theme.margin.default` || `theme.space.default`
-- `value` = `theme.margin[key]` || `theme.space[key]` || `resolveNumericValue(key)`
-
-`.m` | `margin: ${defaultValue};`
-`.mx` | `margin-left: ${defaultValue};`<br>`margin-right: ${defaultValue};`
-`.my` | `margin-top: ${defaultValue};`<br>`margin-bottom: ${defaultValue};`
-`.mt` | `margin-top: ${defaultValue};`
-`.mr` | `margin-right: ${defaultValue};`
-`.mb` | `margin-bottom: ${defaultValue};`
-`.ml` | `margin-left: ${defaultValue};`
-`.mx-${key}` | `margin-left: ${value};`<br>`margin-right: ${value};`
-`.my-${key}` | `margin-top: ${value};`<br>`margin-bottom: ${value};`
-`.mt-${key}` | `margin-top: ${value};`
-`.mr-${key}` | `margin-right: ${value};`
-`.mb-${key}` | `margin-bottom: ${value};`
-`.ml-${key}` | `margin-left: ${value};`
----
 padding
 
 defaultValue = theme.padding.default || theme.space.default
@@ -40,7 +21,7 @@ value = theme.padding[key] || theme.space[key] || computeNumericValue(key)
 
 import { Plugin, ThemeKeys } from '../../../types'
 
-export const marginAndPadding: Plugin = {
+export const padding: Plugin = {
   createDeclarations: function ({
     matches,
     computeNumericValue
@@ -51,48 +32,47 @@ export const marginAndPadding: Plugin = {
       themeKeys: Array<ThemeKeys>
     ) => null | string
   }): { [property: string]: string } {
-    const property = matches[1] === 'm' ? 'margin' : 'padding'
-    const value = computeNumericValue(matches[3], [property, 'space'])
+    const value = computeNumericValue(matches[2], ['padding', 'space'])
     if (value === null) {
-      throw new Error(`Invalid ${property}: ${matches[3]}`)
+      throw new Error(`Invalid padding: ${matches[2]}`)
     }
-    switch (matches[2]) {
+    switch (matches[1]) {
       case 'x': {
         return {
-          [`${property}-right`]: value,
-          [`${property}-left`]: value
+          'padding-left': value,
+          'padding-right': value
         }
       }
       case 'y': {
         return {
-          [`${property}-top`]: value,
-          [`${property}-bottom`]: value
+          'padding-bottom': value,
+          'padding-top': value
         }
       }
       case 't': {
         return {
-          [`${property}-top`]: value
+          'padding-top': value
         }
       }
       case 'r': {
         return {
-          [`${property}-right`]: value
+          'padding-right': value
         }
       }
       case 'b': {
         return {
-          [`${property}-bottom`]: value
+          'padding-bottom': value
         }
       }
       case 'l': {
         return {
-          [`${property}-left`]: value
+          'padding-left': value
         }
       }
     }
     return {
-      [property]: value
+      padding: value
     }
   },
-  regex: /^([mp])([xytrbl])?(?:-(.+))?$/
+  regex: /^p([xytrbl])?(?:-(.+))?$/
 }

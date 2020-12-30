@@ -1,5 +1,6 @@
 import { Theme, ThemeItem, ThemeKeys } from '../../types'
 
+const minusPrefixRegex = /^(-?)(.+)$/
 const pixelValueRegex = /^\d+px$/
 const fractionRegex = /^(\d+)\/(\d+)$/
 const integerRegex = /^\d+$/
@@ -12,40 +13,46 @@ export function computeNumericValueFactory(
     value = 'default',
     themeKeys: Array<ThemeKeys>
   ): null | string {
+    let matches
+    matches = value.match(minusPrefixRegex) as RegExpMatchArray
+    const prefix = matches[1] === '-' ? '-' : ''
+    const parsedValue = matches[2]
     for (const themeKey of themeKeys) {
       if (
         typeof themeKey !== 'undefined' &&
         typeof theme[themeKey] !== 'undefined'
       ) {
-        const result = (theme[themeKey] as ThemeItem)[value]
+        const result = (theme[themeKey] as ThemeItem)[parsedValue]
         if (typeof result !== 'undefined') {
-          return result
+          return `${prefix}${result}`
         }
       }
     }
-    switch (value) {
+    switch (parsedValue) {
       case 'auto': {
         return 'auto'
       }
       case 'full': {
-        return '100%'
+        return `${prefix}100%`
       }
       case 'px': {
-        return '1px'
+        return `${prefix}1px`
       }
     }
-    let matches
-    matches = value.match(pixelValueRegex)
+    matches = parsedValue.match(pixelValueRegex)
     if (matches !== null) {
-      return matches[0]
+      if (matches[0] === '0px') {
+        return '0'
+      }
+      return `${prefix}${matches[0]}`
     }
-    matches = value.match(fractionRegex)
+    matches = parsedValue.match(fractionRegex)
     if (matches !== null) {
-      return `${formatNumber(
+      return `${prefix}${formatNumber(
         (parseFloat(matches[1]) / parseFloat(matches[2])) * 100
       )}%`
     }
-    matches = value.match(integerRegex)
+    matches = parsedValue.match(integerRegex)
     if (matches !== null) {
       if (matches[0] === '0') {
         return '0'
@@ -53,7 +60,9 @@ export function computeNumericValueFactory(
       if (parsedSpace === null) {
         throw new Error('`theme.space` not defined in configuration')
       }
-      return `${parseFloat(matches[0]) * parsedSpace.value}${parsedSpace.unit}`
+      return `${prefix}${parseFloat(matches[0]) * parsedSpace.value}${
+        parsedSpace.unit
+      }`
     }
     return null
   }

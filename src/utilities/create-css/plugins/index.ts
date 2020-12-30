@@ -6,7 +6,9 @@ import { color } from './color'
 import { font } from './font'
 import { letterSpacing } from './letter-spacing'
 import { lineHeight } from './line-height'
-import { marginAndPadding } from './margin-and-padding'
+import { margin } from './margin'
+import { padding } from './padding'
+import { position } from './position'
 import { textStyle } from './text-style'
 import { widthAndHeight } from './width-and-height'
 
@@ -19,7 +21,9 @@ export const plugins = [
   font,
   letterSpacing,
   lineHeight,
-  marginAndPadding,
+  margin,
+  padding,
+  position,
   textStyle,
   widthAndHeight
 ]
