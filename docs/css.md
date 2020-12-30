@@ -14,15 +14,15 @@ Class name | CSS rules
 
 Class name | CSS rules
 :--|:--
-`.bg` | `background-color: ${theme.backgroundColor.default || theme.color.default};`
-`.bg-${key}` | `background-color: ${theme.backgroundColor[key] || theme.color[key]};`
+`.bg` | `background-color: ${theme.backgroundColor.default \|\| theme.color.default};`
+`.bg-${key}` | `background-color: ${theme.backgroundColor[key] \|\| theme.color[key]};`
 
 ## border-color
 
 Class name | CSS rules
 :--|:--
-`.border` | `border-color: ${theme.borderColor.default || theme.color.default};`
-`.border-${key}` | `border-color: ${theme.borderColor[key] || theme.color[key]};`
+`.border` | `border-color: ${theme.borderColor.default \|\| theme.color.default};`
+`.border-${key}` | `border-color: ${theme.borderColor[key] \|\| theme.color[key]};`
 
 ## border-radius
 
@@ -102,6 +102,7 @@ Class name | CSS rules
 `.block` | `display: block;`
 `.flex` | `display: flex;`
 `.hidden` | `display: none;`
+`.inline-flex` | `display: inline-flex;`
 
 ## flex
 
@@ -111,6 +112,14 @@ Class name | CSS rules
 `.flex-auto` | `flex: 1 1 auto;`
 `.flex-initial` | `flex: 0 1 auto;`
 `.flex-none` | `flex: none;`
+
+## flex-wrap
+
+Class name | CSS rules
+:--|:--
+`.flex-nowrap` | `flex-wrap: nowrap;`
+`.flex-wrap` | `flex-wrap: wrap;`
+`.flex-wrap-reverse` | `flex-wrap: wrap-reverse;`
 
 ## font-family
 
@@ -137,13 +146,13 @@ Class name | CSS rules
 :--|:--
 `.h` | `height: ${theme.height.default};`
 `.h-screen` | `height: 100vh;`
-`.h-${key}` | `height: ${theme.height[key] || computeNumericValue(key)};`
+`.h-${key}` | `height: ${theme.height[key] \|\| computeNumericValue(key)};`
 `.minh` | `min-height: ${theme.height.default};`
 `.minh-screen` | `min-height: 100vh;`
-`.minh-${key}` | `min-height: ${theme.height[key] || computeNumericValue(key)};`
+`.minh-${key}` | `min-height: ${theme.height[key] \|\| computeNumericValue(key)};`
 `.maxh` | `max-height: ${theme.height.default};`
 `.maxh-screen` | `max-height: 100vh;`
-`.maxh-${key}` | `max-height: ${theme.height[key] || computeNumericValue(key)};`
+`.maxh-${key}` | `max-height: ${theme.height[key] \|\| computeNumericValue(key)};`
 
 ## justify-content
 
@@ -190,6 +199,19 @@ Class name | CSS rules
 `.mr-${key}` | `margin-right: ${value};`
 `.mb-${key}` | `margin-bottom: ${value};`
 `.ml-${key}` | `margin-left: ${value};`
+`.-m` | `margin: -${defaultValue};`
+`.-mx` | `margin-left: -${defaultValue};`<br>`margin-right: -${defaultValue};`
+`.-my` | `margin-top: -${defaultValue};`<br>`margin-bottom: -${defaultValue};`
+`.-mt` | `margin-top: -${defaultValue};`
+`.-mr` | `margin-right: -${defaultValue};`
+`.-mb` | `margin-bottom: -${defaultValue};`
+`.-ml` | `margin-left: -${defaultValue};`
+`.-mx-${key}` | `margin-left: -${value};`<br>`margin-right: -${value};`
+`.-my-${key}` | `margin-top: -${value};`<br>`margin-bottom: -${value};`
+`.-mt-${key}` | `margin-top: -${value};`
+`.-mr-${key}` | `margin-right: -${value};`
+`.-mb-${key}` | `margin-bottom: -${value};`
+`.-ml-${key}` | `margin-left: -${value};`
 
 ## outline
 
@@ -269,16 +291,35 @@ Class name | CSS rules
 `.normal-case` | `text-transform: none;`
 `.uppercase` | `text-transform: uppercase;`
 
+## top, right, bottom, left
+
+- `value` = `theme.space[key]` || `resolveNumericValue(key)`
+
+Class name | CSS rules
+:--|:--
+`.top` | `top: 0;`
+`.top-${key}` | `top: ${value};`
+`.-top-${key}` | `top: -${value};`
+`.right` | `right: 0;`
+`.right-${key}` | `right: ${value};`
+`.-right-${key}` | `right: -${value};`
+`.bottom` | `bottom: 0;`
+`.bottom-${key}` | `bottom: ${value};`
+`.-bottom-${key}` | `bottom: -${value};`
+`.left` | `left: 0;`
+`.left-${key}` | `left: ${value};`
+`.-left-${key}` | `left: -${value};`
+
 ## width
 
 Class name | CSS rules
 :--|:--
 `.w` | `width: ${theme.width.default};`
 `.w-screen` | `width: 100vw;`
-`.w-${key}` | `width: ${theme.width[key] || computeNumericValue(key)};`
+`.w-${key}` | `width: ${theme.width[key] \|\| computeNumericValue(key)};`
 `.minw` | `min-width: ${theme.width.default};`
 `.minw-screen` | `min-width: 100vw;`
-`.minw-${key}` | `min-width: ${theme.width[key] || computeNumericValue(key)};`
+`.minw-${key}` | `min-width: ${theme.width[key] \|\| computeNumericValue(key)};`
 `.maxw` | `max-width: ${theme.width.default};`
 `.maxw-screen` | `max-width: 100vw;`
-`.maxw-${key}` | `max-width: ${theme.width[key] || computeNumericValue(key)};`
+`.maxw-${key}` | `max-width: ${theme.width[key] \|\| computeNumericValue(key)};`
