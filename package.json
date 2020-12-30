@@ -1,6 +1,6 @@
 {
   "name": "generate-css",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Dynamically generate functional CSS classes from HTML and JavaScript source files",
   "keywords": [
     "css",
