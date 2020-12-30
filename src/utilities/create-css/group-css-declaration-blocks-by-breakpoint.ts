@@ -1,7 +1,12 @@
-import { CssDeclarationBlock, CssDeclarationBlocks } from '../../types'
+import {
+  CssDeclarationBlock,
+  CssDeclarationBlocks,
+  ThemeItem
+} from '../../types'
 
 export function groupCssDeclarationBlocksByBreakpoint(
-  cssDeclarationBlocks: Array<CssDeclarationBlock>
+  cssDeclarationBlocks: Array<CssDeclarationBlock>,
+  themeBreakpoints?: ThemeItem
 ): Array<CssDeclarationBlocks> {
   if (cssDeclarationBlocks.length === 0) {
     return []
@@ -30,10 +35,13 @@ export function groupCssDeclarationBlocksByBreakpoint(
       cssDeclarationBlocks: breakpoints[breakpoint]
     })
   }
-  return sortCss(result)
+  return sortCss(result, themeBreakpoints)
 }
 
-function sortCss(css: Array<CssDeclarationBlocks>) {
+function sortCss(
+  css: Array<CssDeclarationBlocks>,
+  themeBreakpoints?: ThemeItem
+) {
   return css
     .slice()
     .sort(function (a, b) {
@@ -42,6 +50,16 @@ function sortCss(css: Array<CssDeclarationBlocks>) {
       }
       if (b.breakpoint === null) {
         return 1
+      }
+      if (typeof themeBreakpoints !== 'undefined') {
+        const aBreakpointWidth = themeBreakpoints[a.breakpoint]
+        const bBreakpointWidth = themeBreakpoints[b.breakpoint]
+        if (
+          typeof aBreakpointWidth !== 'undefined' &&
+          typeof bBreakpointWidth !== 'undefined'
+        ) {
+          return parseInt(aBreakpointWidth, 10) - parseInt(bBreakpointWidth, 10)
+        }
       }
       return a.breakpoint.localeCompare(b.breakpoint)
     })

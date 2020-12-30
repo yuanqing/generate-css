@@ -14,5 +14,5 @@ export function createCss(
     }
     result.push(cssDeclarationBlock)
   }
-  return groupCssDeclarationBlocksByBreakpoint(result)
+  return groupCssDeclarationBlocksByBreakpoint(result, theme.breakpoint)
 }
