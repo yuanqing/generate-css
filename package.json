@@ -37,7 +37,7 @@
     "lint": "concurrently --raw 'yarn run lint-css' 'yarn run lint-ts'",
     "lint-css": "stylelint 'src/**/*.css'",
     "lint-ts": "eslint '{scripts,src}/**/*.ts'",
-    "prepublishOnly": "yarn run clean && yarn run build",
+    "prepublishOnly": "yarn run clean && yarn run docs && yarn run build",
     "reset": "yarn run clean && rimraf node_modules yarn.lock && yarn install",
     "start": "ts-node src/cli.ts 'example/*.html' --config example/generate-css.config.json --output example/style.css",
     "test": "yarn run clean && tap 'src/**/__tests__/**/*.ts' --coverage-report html --coverage-report text --jobs-auto --no-browser --reporter terse",
