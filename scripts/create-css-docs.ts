@@ -19,7 +19,7 @@ async function main(): Promise<void> {
     }
     section.push('Class name | CSS rules\n')
     section.push(':--|:--\n')
-    section.push(`${classes}`)
+    section.push(`${classes.replace(/\|\|/g, '\\|\\|')}`)
     result.push(section.join(''))
   }
   const file = path.join(path.resolve(__dirname, '..'), 'docs', 'css.md')
