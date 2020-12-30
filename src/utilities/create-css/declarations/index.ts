@@ -3,6 +3,7 @@ import { alignItems } from './align-items'
 import { cursor } from './cursor'
 import { display } from './display'
 import { flex } from './flex'
+import { flexWrap } from './flex-wrap'
 import { justifyContent } from './justify-content'
 import { outline } from './outline'
 import { position } from './position'
@@ -16,6 +17,7 @@ export const declarations: { [selector: string]: Declarations } = {
   ...cursor,
   ...display,
   ...flex,
+  ...flexWrap,
   ...outline,
   ...justifyContent,
   ...position,

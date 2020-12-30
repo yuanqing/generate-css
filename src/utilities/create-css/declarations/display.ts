@@ -1,11 +1,14 @@
 export const display = {
-  block: {
+  'block': {
     display: 'block'
   },
-  flex: {
+  'flex': {
     display: 'flex'
   },
-  hidden: {
+  'hidden': {
     display: 'none'
+  },
+  'inline-flex': {
+    display: 'inline-flex'
   }
 }
