@@ -8,6 +8,8 @@ export function watch(cliOptions: CliOptions): void {
   const files = [cliOptions.sourceFilesPattern]
   if (typeof cliOptions.configFilePath === 'string') {
     files.push(cliOptions.configFilePath)
+  } else {
+    files.push('package.json')
   }
   if (cliOptions.prependCssFilesPattern !== null) {
     files.push(cliOptions.prependCssFilesPattern)
