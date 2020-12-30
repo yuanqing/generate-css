@@ -55,7 +55,7 @@ async function readPackageJsonConfig(): Promise<null | {
   if ((await fs.pathExists(packageJsonFilePath)) === false) {
     return null
   }
-  const packageJson = require(packageJsonFilePath)
+  const packageJson = JSON.parse(await fs.readFile(packageJsonFilePath, 'utf8'))
   const config = packageJson[PACKAGE_JSON_KEY]
   if (typeof config === 'undefined') {
     return null
