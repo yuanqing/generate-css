@@ -8,6 +8,9 @@ export const display = {
   'hidden': {
     display: 'none'
   },
+  'inline': {
+    display: 'inline'
+  },
   'inline-flex': {
     display: 'inline-flex'
   }
